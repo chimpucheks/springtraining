@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<!-- here we have injected the address into student bean it is called dependency 
+		injection -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		 <!-- <property name="address" ref="address"></property>  -->
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+	<!-- it is an example of explicit wiring -->
+	
+	
+	
+	
+	
+	
+	<!-- example of autowire by name -->
+	
+	<!-- <bean id="s1" class="com.zensar.beans.Student" autowire="byName">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> -->
+	
+	<!-- // if we not given the by name then it gives default values  -->
+	
+	
+	
+	
+	
+	
+	<!-- example of autowire bytype  -->
+	
+	<!-- <bean id="s1" class="com.zensar.beans.Student" autowire="byType">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> -->
+	
+	
+	<!-- 2 bean with same type will not be execute it show error -->
+
+
+	 <!-- <bean id="s1" class="com.zensar.beans.Student" autowire="byType">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address" ref="address"></property>
+	</bean> -->
+	
+	<!-- if either one of the bean is not interested in partispating in auto wiring then we give autowire -candidate="false"  for that particular bean -->
+
+	 <!-- <bean id="addr" class="com.zensar.beans.Address" autowire-candidate="false">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="indore"></property>
+		<property name="pincode" value="111222"></property>
+
+	</bean>  -->
+
+
+
+
+
+		<!-- example of autowire constructor -->
+
+
+	<!-- <bean id="s1" class="com.zensar.beans.Student" autowire="constructor">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+	
+	<bean id="addre" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+ -->
+ 
+ 
+ 			<!--autowire default  -->
+ 			
+ 			
+ 		<!-- 	<bean id="s1" class="com.zensar.beans.Student" autowire="default">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+	</bean>
+
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+	
+	<bean id="address1" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>  -->
+ 			
+ 
+ 
+</beans>
