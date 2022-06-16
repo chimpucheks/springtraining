@@ -1,0 +1,3084 @@
+explict wiring
+
+
+
+
+student.java
+
+
+package com.zensar.beans;
+
+
+
+public class Student {
+
+	
+	private int studentId;
+	
+	private String studentName;
+	
+	private int studentAge;
+	
+	private Address address;//main important for autowire bytype:address
+
+	public Address getAddress() {
+		return address;
+	}
+
+	
+	
+	/*
+	 * public Student(Address address) { super(); this.address = address; }
+	 */
+
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	public Student() {
+		super();
+	}
+
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+	
+
+}
+
+-------------------------
+
+
+
+address.java
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+------------------------------------------------
+
+
+context.xml file
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<!-- here we have injected the address into student bean it is called dependency 
+		injection -->
+
+
+	<!-- <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> -->
+
+	<!-- it is an example of explicit wiring -->
+	
+</beans>
+
+
+
+-------------------
+
+app.java the where we run
+
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+import com.zensar.config.JavaConfiguration;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		System.out.println(student);
+		
+	}
+}
+
+
+output:
+
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76]
+
+
+
+
+--------------------------------------------------------------------
+
+for printing student have address
+
+
+
+
+
+address.java
+
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+------------------------------
+
+student.java
+
+
+
+package com.zensar.beans;
+
+
+
+public class Student {
+
+	
+	private int studentId;
+	
+	private String studentName;
+	
+	private int studentAge;
+
+
+	//here in student we have to give this private address address then the student address will combine
+	private Address address;  //main important for autowire bytype:address
+
+
+   
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	public Student() {
+		super();
+	}
+
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+	
+	
+	
+	
+
+}
+
+
+
+--------------------------------
+
+context.xml
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<!-- here we have injected the address into student bean it is called dependency 
+		injection -->
+
+
+	<bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+	<!-- it is an example of explicit wiring -->
+	
+</beans>
+
+
+
+--------------------------------------
+
+
+app.java
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+import com.zensar.config.JavaConfiguration;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=ap, city=vsp, pincode=530028]]
+
+
+
+
+---------------------------------------------------------
+
+
+
+autowire by name
+
+
+address.java
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+---------------------------------
+student.java
+
+package com.zensar.beans;
+
+
+
+public class Student {
+
+	
+	private int studentId;
+	
+	private String studentName;
+	
+	private int studentAge;
+	
+	private Address address;//main important for autowire bytype:address
+
+	public Address getAddress() {
+		return address;
+	}
+
+	
+	
+	/*
+	 * public Student(Address address) { super(); this.address = address; }
+	 */
+
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	public Student() {
+		super();
+	}
+
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+	
+	
+	
+	
+
+}
+
+
+----------------------------------
+
+context.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+
+<!-- example of autowire by name -->
+	
+	<bean id="s1" class="com.zensar.beans.Student" autowire="byName">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+	
+	<!-- // if we not given the by name then it gives default values  -->
+
+</beans>
+
+
+----------------------------------------------------------
+
+
+
+app.java
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+import com.zensar.config.JavaConfiguration;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=ap, city=vsp, pincode=530028]]
+
+
+
+-------------------------------------------------------------------
+
+autowire by type
+
+
+
+
+address.java
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+----------------------------------------------------
+
+student.java
+
+
+
+package com.zensar.beans;
+
+
+
+public class Student {
+
+	
+	private int studentId;
+	
+	private String studentName;
+	
+	private int studentAge;
+	
+	private Address address;//main important for autowire bytype:address
+
+	public Address getAddress() {
+		return address;
+	}
+
+	
+	
+	/*
+	 * public Student(Address address) { super(); this.address = address; }
+	 */
+
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	public Student() {
+		super();
+	}
+
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+	
+	
+	
+	
+
+}
+
+------------------------------------------
+
+
+context.xml
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+
+		<!-- 2 bean with same type will not be execute it show error -->
+<!-- if either one of the bean is not interested in partispating in auto wiring then we give autowire -candidate="false"  for that particular bean -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student" autowire="byType">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		
+	</bean>
+	 
+	
+	 <bean id="addr" class="com.zensar.beans.Address" autowire-candidate="false">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="indore"></property>
+		<property name="pincode" value="111222"></property>
+
+	</bean> 
+
+
+</beans>
+
+
+----------------------------------
+
+
+app.java
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+import com.zensar.config.JavaConfiguration;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+
+output:
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=mp, city=indore, pincode=111222]]
+
+
+------------------------------------------------
+
+autowire ="constructor"
+
+
+address.java
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+----------------------------------------
+
+student.java
+
+
+here the constructor should have only address type  constructor  then the code will be executed 
+
+package com.zensar.beans;
+
+
+
+public class Student {
+
+	
+	private int studentId;
+	
+	private String studentName;
+	
+	private int studentAge;
+	
+	private Address address;//main important for autowire bytype:address
+
+	public Address getAddress() {
+		return address;
+	}
+
+	
+	
+	
+	 public Student(Address address) { super(); this.address = address; }
+	
+
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	public Student() {
+		super();
+	}
+
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+	
+	
+	
+	
+
+}
+
+
+-------------------------------------
+
+context.xml
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+
+<!-- example of autowire constructor -->
+
+
+	<bean id="s1" class="com.zensar.beans.Student" autowire="constructor">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		
+	</bean>
+
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+</beans>
+
+-------------------------------------------------------------------------------
+optional :constructor->bytype
+
+
+	<bean id="s1" class="com.zensar.beans.Student" autowire="constructor">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+
+///here bean with same id=address will give exception
+
+-----------------------------------------------------------------------
+//here the bean will print ap,vsp,530028
+
+//constructor->byname
+
+<bean id="s1" class="com.zensar.beans.Student" autowire="constructor">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+	<bean id="addr" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+
+
+
+//
+
+</beans>
+
+//internally constructor-> bytype  -> by name
+---------------------------------------
+
+
+app.java
+
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+import com.zensar.config.JavaConfiguration;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=ap, city=vsp, pincode=530028]]
+
+
+
+-------------------------------------------------------------------------
+
+
+
+autowire=default
+
+
+
+
+address.java
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+-------------------------
+
+student.java
+
+package com.zensar.beans;
+
+public class Student {
+
+	private int studentId;
+
+	private String studentName;
+
+	private int studentAge;
+
+	private Address address;// main important for autowire bytype:address
+
+	
+	
+	
+	
+	public Student() {
+		super();
+	}
+	
+	
+	
+	public Student(Address address) {
+		super();
+		this.address = address;
+	}
+
+
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+	
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+}
+
+----------------------------------
+
+context.java
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+
+<!--autowire default  -->
+ 			
+ 			
+ 		<bean id="s1" class="com.zensar.beans.Student" autowire="default">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+	</bean>
+
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+	
+	<bean id="address1" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+ 	</beans>
+ -----------------------------------------
+
+
+app.java
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+import com.zensar.config.JavaConfiguration;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=null]
+//no autowiring happended
+
+
+
+-----------------------------------------------------------------------
+
+
+
+Annotations
+		@Autowired
+
+		1.you can use it on top of property/field
+
+		2.you can use it on tio of constructor
+
+		3.you can use it on top of setter method
+
+
+by default the annotation is disabled
+
+
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=null]
+
+
+for enable
+1.in sts tool in context.xml down we have name space we have to select context
+
+
+<context:annotation-config></context:annotation-config>
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+student.java
+
+
+
+package com.zensar.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Student {
+
+	private int studentId;
+
+	private String studentName;
+
+	private int studentAge;
+	
+	@Autowired
+	private Address address;// main important for autowire bytype:address
+
+	
+	
+	
+	
+	public Student() {
+		super();
+	}
+	
+	
+	
+	public Student(Address address) {
+		super();
+		this.address = address;
+	}
+
+
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+	
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+}
+
+
+----------------------
+
+
+address.java
+
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+---------------------------
+
+context.java
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:annotation-config></context:annotation-config>
+	<!-- using annotations  @Autowired -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		 <!-- <property name="address" ref="address"></property>  -->
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+	
+</beans>
+
+
+
+
+
+-----------------------------
+
+
+app.java
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=ap, city=vsp, pincode=530028]]
+
+------------------------------------------------------------------------------------
+
+
+2.you can use it on tio of constructor
+-
+
+student.java
+
+package com.zensar.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Student {
+
+	private int studentId;
+
+	private String studentName;
+
+	private int studentAge;
+	
+	//@Autowired    //1.property/field
+	private Address address;// main important for autowire bytype:address
+
+	
+	
+	
+	
+	public Student() {
+		super();
+	}
+	
+	
+	//@Autowired  //2.constructor
+	public Student(Address address) {
+		super();
+		this.address = address;
+	}
+
+
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+	@Autowired
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+}
+
+-------------------------------------------
+
+address.java
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+-----------------------
+context.xml
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:annotation-config></context:annotation-config>
+	<!-- using annotations  @Autowired -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		 <!-- <property name="address" ref="address"></property>  -->
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+	
+</beans>
+
+--------------------------------
+
+app.java
+
+
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=ap, city=vsp, pincode=530028]]
+
+
+---------------------------------------------------------------------------
+
+3.you can use it on top of setter method
+
+
+
+student.java
+
+package com.zensar.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Student {
+
+	private int studentId;
+
+	private String studentName;
+
+	private int studentAge;
+	
+	//@Autowired    //1.property/field
+	private Address address;// main important for autowire bytype:address
+
+	
+	
+	
+	
+	public Student() {
+		super();
+	}
+	
+	
+	//@Autowired  //2. on constructor
+	public Student(Address address) {
+		super();
+		this.address = address;
+	}
+
+
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+	@Autowired  //3. on setter method
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+}
+
+--------------------------------------
+
+address.java
+
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+------------------------
+
+context.java
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:annotation-config></context:annotation-config>
+	<!-- using annotations  @Autowired -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		 <!-- <property name="address" ref="address"></property>  -->
+	</bean>
+
+	<bean id="address" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+
+	
+</beans>
+
+
+
+-----------------------------
+
+
+app.java
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+
+output:
+
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=ap, city=vsp, pincode=530028]]
+
+
+
+
+-------------------------------------------------------------------------------------
+
+in case of annotations 2 beans of same type will not be executed 
+
+so in that case we have @Qualifier("address1")
+
+if we specify the bean id inthe " here"
+ then that bean will participate in autowiring
+
+
+
+
+student.java
+
+
+package com.zensar.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class Student {
+
+	private int studentId;
+
+	private String studentName;
+
+	private int studentAge;
+	
+	@Autowired    //1.property/field
+	@Qualifier("address1")
+	private Address address;// main important for autowire bytype:address
+
+	
+	
+	
+	
+	public Student() {
+		super();
+	}
+	
+	
+	//@Autowired  //2. on constructor
+	public Student(Address address) {
+		super();
+		this.address = address;
+	}
+
+
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+	//@Autowired  //3. on setter method
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+}
+
+----------------------------------------------
+
+
+address.java
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+----------------------------
+
+context.xml
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:annotation-config></context:annotation-config>
+	<!-- using annotations  @Autowired -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		 <!-- <property name="address" ref="address"></property>  -->
+	</bean>
+
+	<bean id="address1" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+	
+	<bean id="address2" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>
+
+	
+</beans>
+
+
+----------------------------------------------------------
+
+app.java
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+
+output:
+
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=Address [state=ap, city=vsp, pincode=530028]]
+
+
+
+-------------------------------------------------------------------
+
+
+if a student have multiple address then we use the following
+
+
+
+
+student.java
+
+
+package com.zensar.beans;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class Student {
+
+	private int studentId;
+
+	private String studentName;
+
+	private int studentAge;
+	
+	//@Autowired    //1.property/field
+	//@Qualifier("address1")
+	
+	
+	
+	private List<Address> address;// main important for autowire bytype:address
+
+	
+	
+	
+	
+	public Student() {
+		super();
+	}
+	
+	
+	//@Autowired  //2. on constructor
+	public Student(List<Address> address) {
+		super();
+		this.address = address;
+	}
+
+
+
+
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	//@Autowired  //3. on setter method
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, List<Address>address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+}
+
+-----------------------------------------
+
+address.java
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+
+----------------------------
+
+context.xml
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:annotation-config></context:annotation-config>
+	<!-- using annotations  @Autowired -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address">
+		<list>
+			<ref bean="address1"/>
+			<ref bean="address2"/>
+			<ref bean="address3"/>
+		</list>
+		
+		</property>  
+	</bean>
+
+	<bean id="address1" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+	
+	<bean id="address2" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>
+	
+	<bean id="address3" class="com.zensar.beans.Address">
+		<property name="state" value="up"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>
+
+	
+</beans>
+
+
+--------------------------------------------
+
+app.java
+
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=[Address [state=ap, city=vsp, pincode=530028], Address [state=mp, city=vsp, pincode=530028], Address [state=up, city=vsp, pincode=530028]]]
+
+
+-------------------------------------------------------
+
+using set
+
+
+
+student.java
+
+
+
+package com.zensar.beans;
+
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class Student {
+
+	private int studentId;
+
+	private String studentName;
+
+	private int studentAge;
+	
+	//@Autowired    //1.property/field
+	//@Qualifier("address1")
+	
+	
+	
+	private Set<Address> address;// main important for autowire bytype:address
+
+	
+	
+	
+	
+	public Student() {
+		super();
+	}
+	
+	
+	//@Autowired  //2. on constructor
+	public Student(Set<Address> address) {
+		super();
+		this.address = address;
+	}
+
+
+
+
+
+	public Set<Address> getAddress() {
+		return address;
+	}
+
+	//@Autowired  //3. on setter method
+	public void setAddress(Set<Address> address) {
+		this.address = address;
+	}
+
+	public Student(int studentId, String studentName, int studentAge, Set<Address>address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+}
+
+
+--------------------------------------
+
+address.java
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+
+
+-------------------------------
+
+conytext.xml
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:annotation-config></context:annotation-config>
+	<!-- using annotations  @Autowired -->
+
+
+	 <bean id="s1" class="com.zensar.beans.Student">
+		<property name="studentId" value="1"></property>
+		<property name="studentName" value="CSE/IT"></property>
+		<property name="studentAge" value="76"></property>
+		<property name="address">
+		<set>
+			<ref bean="address1"/>
+			<ref bean="address2"/>
+		</set>
+		
+		</property>  
+	</bean>
+
+	<bean id="address1" class="com.zensar.beans.Address">
+		<property name="state" value="ap"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean> 
+	
+	<bean id="address2" class="com.zensar.beans.Address">
+		<property name="state" value="mp"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>
+	
+	<bean id="address3" class="com.zensar.beans.Address">
+		<property name="state" value="up"></property>
+		<property name="city" value="vsp"></property>
+		<property name="pincode" value="530028"></property>
+
+	</bean>
+
+	
+</beans>
+
+
+
+--------------------------------------------
+
+
+app.java
+
+
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Address;
+import com.zensar.beans.Employee;
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Content.xml");
+		Student student =context.getBean("s1", Student.class);
+		
+		//Address address=context.getBean("address",Address.class);
+		System.out.println(student);
+		//System.out.println(address);
+	}
+}
+
+
+output:
+
+
+Student [studentId=1, studentName=CSE/IT, studentAge=76, address=[Address [state=ap, city=vsp, pincode=530028], Address [state=mp, city=vsp, pincode=530028]]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

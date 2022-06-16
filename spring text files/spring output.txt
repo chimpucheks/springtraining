@@ -1,0 +1,142 @@
+* Student student=(Student)session.get(Student.class, 2);
+* student.setStudentName("klM"); student.setStudentAge(40);
+* session.update(student);
+		 */
+
+mysql> select * from studentinfo;
++----+------------+-----+----------+
+| id | birthDate  | age | name     |
++----+------------+-----+----------+
+|  1 | 2022-06-05 |  33 | kl       |
+|  2 | 2022-06-05 |  40 | klM      |
+|  3 | 2022-06-05 |  45 | kl rahul |
+|  4 | 2022-06-05 |  28 | Ravindra |
++----+------------+-----+----------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+session.saveOrUpdate(new Student("Ravindra",29,new Date()));
+
+mysql> select * from studentinfo;
++----+------------+-----+----------+
+| id | birthDate  | age | name     |
++----+------------+-----+----------+
+|  1 | 2022-06-05 |  33 | kl       |
+|  2 | 2022-06-05 |  40 | klM      |
+|  3 | 2022-06-05 |  45 | kl rahul |
+|  4 | 2022-06-05 |  28 | Ravindra |
+|  5 | 2022-06-05 |  29 | Ravindra |
++----+------------+-----+----------+
+5 rows in set (0.00 sec)
+
+
+
+Student student=(Student)session.get(Student.class,2); 
+		session.delete(student);
+
+
+mysql> select * from studentinfo;
++----+------------+-----+----------+
+| id | birthDate  | age | name     |
++----+------------+-----+----------+
+|  1 | 2022-06-05 |  33 | kl       |
+|  3 | 2022-06-05 |  45 | kl rahul |
+|  4 | 2022-06-05 |  28 | Ravindra |
+|  5 | 2022-06-05 |  29 | Ravindra |
++----+------------+-----+----------+
+4 rows in set (0.00 sec)
+
+----------------------------------------------------------------
+
+Query query = session.createQuery("FROM StudentInformation");
+		
+		List list = query.list();
+		
+		for(Object obj:list) {
+			System.out.println(obj);
+		}
+
+Student [studentId=1, studentName=kl, studentAge=33, birthDate=2022-06-05]
+Student [studentId=3, studentName=kl rahul, studentAge=45, birthDate=2022-06-05]
+Student [studentId=4, studentName=Ravindra, studentAge=28, birthDate=2022-06-05]
+Student [studentId=5, studentName=Ravindra, studentAge=29, birthDate=2022-06-05]
+student saved Successfullyyyy !!!
+
+
+
+Query query = session.createQuery("FROM StudentInformation s");
+		
+		List list = query.list();
+		
+		for(Object obj:list) {
+			System.out.println(obj);
+		}
+
+
+       StudentInfo student0_
+Student [studentId=1, studentName=kl, studentAge=33, birthDate=2022-06-05]
+Student [studentId=3, studentName=kl rahul, studentAge=45, birthDate=2022-06-05]
+Student [studentId=4, studentName=Ravindra, studentAge=28, birthDate=2022-06-05]
+Student [studentId=5, studentName=Ravindra, studentAge=29, birthDate=2022-06-05]
+student saved Successfullyyyy !!!
+
+
+
+Query query = session.createQuery("FROM StudentInformation AS s");
+		
+		List list = query.list();
+		
+		for(Object obj:list) {
+			System.out.println(obj);
+		}
+
+
+       StudentInfo student0_
+Student [studentId=1, studentName=kl, studentAge=33, birthDate=2022-06-05]
+Student [studentId=3, studentName=kl rahul, studentAge=45, birthDate=2022-06-05]
+Student [studentId=4, studentName=Ravindra, studentAge=28, birthDate=2022-06-05]
+Student [studentId=5, studentName=Ravindra, studentAge=29, birthDate=2022-06-05]
+student saved Successfullyyyy !!!
+
+
+Query query = session.createQuery("FROM StudentInformation s where s.studentId>3");
+		
+		List list = query.list();
+		
+		for(Object obj:list) {
+			System.out.println(obj);
+		}
+
+
+
+
+        student0_.id>3
+Student [studentId=4, studentName=Ravindra, studentAge=28, birthDate=2022-06-05]
+Student [studentId=5, studentName=Ravindra, studentAge=29, birthDate=2022-06-05]
+student saved Successfullyyyy !!!
+
+
+
+
+
+
+Query query = session.createQuery("SELECT s.studentName From StudentInformation s where s.studentId>3");
+		
+		List list = query.list();
+		
+		for(Object obj:list) {
+			System.out.println(obj);
+		}
+
+
+
+
+        student0_.id>3
+Ravindra
+Ravindra
+student saved Successfullyyyy !!!
+
+32.00

@@ -1,0 +1,532 @@
+create, create-drop
+
+key difference is 
+
+for create-drop-> existing table will drop 
+		it will create new table
+		and if we close the session factory the tables will drop
+
+for create-> just it will drop the existing table  and it will create new table
+		if we close session factory the table will not drop
+
+
+
+
+
+dialect:- it will always create database dependent queries.
+
+ex:- org.hibernate.dialect.h2dialect-here it will generate h2dialect queries
+if it is mysqldialect-it will generate mysql queries
+
+----------------------------------------
+
+To create a project using maveen
+
+
+before maveen
+
+Ant:-
+maven:-
+Gradle:-
+
+maveen-> is a project management tool-> every maven project have pom.xml file
+ pom->project object model-> where we can add all dependency
+ to add we need to go to chrome-> type hybernate maven dependency -> click on hibernate core maven repository
+find the latest version-> but we done project with 4.2.21final simpley click on that and copy maven content and paste in pom file
+save the file we get one more file called maven dependencies-> along with hibernate remaining dependencies also dowloaded those are called transtive dependencies
+copy the same com.entity and com.client to maven src/main/java and copy the configuration file to(hibernate.cfg.xml) to maven->src/main/resources. 
+
+methods  to get data using primary key
+get
+load
+
+		Student student=(Student)session.load(Student.class, 104);
+
+to get data through name (studentname)
+
+		Student student=(Student)session.load(Student.class, "vinod");
+
+we will get error type mis match
+
+by using  get method  
+ Student student=(Student)session.load(Student.class, 500);
+if the key is not there in data base it willwrite as null
+
+it search the data fast
+
+
+but in case of load method 
+it throws exception
+
+it search the data lazy
+
+-----------------------------------
+power example
+
+configuration   documents to submit and get power connection
+session factory   electric pole providing power to multiple people
+session            multiple people belongs to  session
+transaction        without power we can't use 
+
+
+
+----------------------
+
+
+saving student to studentinfo
+
+-------------------------------------
+
+
+if we use transient property no column will be created in datatable
+@generated -> will generate automatically the id
+
+
+crud operations
+
+c->create  student,product session.save()
+r->read    session.get(Student.class,101).load(Student.class,101)
+u->update  
+d->delete
+
+
+
+hql
+
+in hql we will use studentinformation entity
+
+
+1.45
+
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 41
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use product;
+ERROR 1049 (42000): Unknown database 'product'
+mysql> use database product;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> select * from student;
+ERROR 1046 (3D000): No database selected
+mysql> use javabatch;
+Database changed
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> use javabatch;
+Database changed
+mysql> select * from student;
++-----------+------------+-------------+
+| studentId | studentAge | studentName |
++-----------+------------+-------------+
+|       100 |         80 | raju        |
++-----------+------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++-----------+------------+-------------+
+| studentId | studentAge | studentName |
++-----------+------------+-------------+
+|       100 |         80 | raju        |
+|       101 |         90 | rajugaru    |
++-----------+------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student;
++-----------+------------+-------------+
+| studentId | studentAge | studentName |
++-----------+------------+-------------+
+|       100 |         80 | raju        |
+|       101 |         90 | rajugaru    |
+|       102 |         60 | vinod       |
+|       103 |         10 | vinodkumar  |
+|       104 |         20 | kumar       |
+|       105 |         30 | kumari      |
++-----------+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from product;
++-----------+-------------+-------------+
+| productId | productCost | productName |
++-----------+-------------+-------------+
+|         1 |      856899 | delltouch   |
++-----------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from product;
++-----------+-------------+-------------+
+| productId | productCost | productName |
++-----------+-------------+-------------+
+|         1 |      856899 | delltouch   |
+|         2 |       86899 | dell        |
+|         3 |       88909 | lenevo      |
+|         4 |        8890 | hp          |
+|         5 |      876890 | tab         |
++-----------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student;
++-----------+------------+-------------+
+| studentId | studentAge | studentName |
++-----------+------------+-------------+
+|       100 |         80 | raju        |
+|       101 |         90 | rajugaru    |
+|       102 |         60 | vinod       |
+|       103 |         10 | vinodkumar  |
+|       104 |         20 | kumar       |
+|       105 |         30 | kumari      |
+|       555 |         30 | mahi        |
++-----------+------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from studentInfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from StudentInfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from student;
++-----------+------------+-------------+
+| studentId | studentAge | studentName |
++-----------+------------+-------------+
+|       100 |         80 | raju        |
+|       101 |         90 | rajugaru    |
+|       102 |         60 | vinod       |
+|       103 |         10 | vinodkumar  |
+|       104 |         20 | kumar       |
+|       105 |         30 | kumari      |
+|       555 |         30 | mahi        |
++-----------+------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> use javabatch
+Database changed
+mysql> use javabatch;
+Database changed
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> select * from student;
++-----------+------------+-------------+
+| studentId | studentAge | studentName |
++-----------+------------+-------------+
+|       100 |         80 | raju        |
+|       101 |         90 | rajugaru    |
+|       102 |         60 | vinod       |
+|       103 |         10 | vinodkumar  |
+|       104 |         20 | kumar       |
+|       105 |         30 | kumari      |
+|       555 |         30 | mahi        |
++-----------+------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from product;
++-----------+-------------+-------------+
+| productId | productCost | productName |
++-----------+-------------+-------------+
+|         1 |      856899 | delltouch   |
+|         2 |       86899 | dell        |
+|         3 |       88909 | lenevo      |
+|         4 |        8890 | hp          |
+|         5 |      876890 | tab         |
++-----------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
+ERROR 1146 (42S02): Table 'javabatch.studentinfo' doesn't exist
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| customer           |
+| information_schema |
+| javabatch          |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> select * from studentinfo;
++-----------+------------+-------------+
+| studentId | studentAge | studentName |
++-----------+------------+-------------+
+|        55 |         30 | mahi        |
++-----------+------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> desc studentinfo;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| studentId   | int          | NO   | PRI | NULL    |       |
+| studentAge  | int          | NO   |     | NULL    |       |
+| studentName | varchar(255) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc studentinfo;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| age   | int         | NO   |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc studentinfo;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| age          | int          | NO   |     | NULL    |       |
+| name         | varchar(50)  | YES  |     | NULL    |       |
+| tempProperty | varchar(255) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc studentinfo;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| age   | int         | NO   |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+---------------------+-----+------+
+| id | birthDate           | age | name |
++----+---------------------+-----+------+
+| 55 | 2022-06-05 13:45:12 |  30 | mahi |
++----+---------------------+-----+------+
+1 row in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+-----------+-----+------+
+| id | birthDate | age | name |
++----+-----------+-----+------+
+| 55 | 13:49:03  |  30 | mahi |
++----+-----------+-----+------+
+1 row in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+------+
+| id | birthDate  | age | name |
++----+------------+-----+------+
+| 55 | 2022-06-05 |  30 | mahi |
++----+------------+-----+------+
+1 row in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+------+
+| id | birthDate  | age | name |
++----+------------+-----+------+
+|  0 | 2022-06-05 |  30 | mahi |
++----+------------+-----+------+
+1 row in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+------+
+| id | birthDate  | age | name |
++----+------------+-----+------+
+|  1 | 2022-06-05 |  36 | mahi |
++----+------------+-----+------+
+1 row in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+------+
+| id | birthDate  | age | name |
++----+------------+-----+------+
+|  1 | 2022-06-05 |  36 | mahi |
+|  2 | 2022-06-05 |  36 | mahi |
++----+------------+-----+------+
+2 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_javabatch |
++---------------------+
+| product             |
+| student             |
+| studentinfo         |
++---------------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+------+
+| id | birthDate  | age | name |
++----+------------+-----+------+
+|  1 | 2022-06-05 |  36 | mahi |
+|  2 | 2022-06-05 |  36 | mahi |
++----+------------+-----+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
++----+------------+-----+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo;
++----+------------+-----+-------+
+| id | birthDate  | age | name  |
++----+------------+-----+-------+
+|  1 | 2022-06-05 |  36 | mahi  |
+|  2 | 2022-06-05 |  36 | mahi  |
+|  3 | 2022-06-05 |  18 | virat |
+|  4 | 2022-06-05 |  45 | rohit |
+|  5 | 2022-06-05 |  32 | kl    |
++----+------------+-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> ^C
+mysql>
+
+

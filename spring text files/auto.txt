@@ -1,0 +1,6 @@
+Write 2 beans EmployeeBean & DepartmentBean. EmployeeBean has DepartmentBean dependency. Autowire them using following methods:
+	autowire byName
+	autowire byType
+	autowire by constructor
+	@Autowired annotation
+	@Qualifier annotation

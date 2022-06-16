@@ -1,0 +1,116 @@
+runners in springboot
+
+
+CommandLineRunner
+ApplicationRunner
+
+
+
+
+
+
+package com.zensar.springbootdemo;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan(basePackages= {"com.zensar"})
+public class SpringBootDemoApplication implements CommandLineRunner {
+
+	public static void main(String... args) 
+	{
+		System.out.println("Ram");
+		SpringApplication.run(SpringBootDemoApplication.class, args);
+		System.out.println("Laxman");
+	}
+	
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("seetha");
+		
+	}
+
+}
+
+
+
+
+package com.zensar.springbootdemo;
+
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(2) //lower the number higher the priority
+public class MyCommandLineRunner implements CommandLineRunner {
+
+	
+	
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("MyCommandLineRunner"+Arrays.toString(args));
+		
+}
+}
+
+
+
+package com.zensar.springbootdemo;
+
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(1)
+public class MyCommandLineRunner2 implements CommandLineRunner {
+
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("MyCommandLineRunner2"+Arrays.toString(args));
+		
+}
+}
+
+
+
+
+package com.zensar.springbootdemo;
+
+import java.util.Arrays;
+
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(3)
+public class MyApplicationRunner implements ApplicationRunner{
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		System.out.println("MyApplicationRunner"+Arrays.toString((args.getSourceArgs())));
+		
+	}
+
+}
+
+
+MyCommandLineRunner2[--spring.output.ansi.enabled=always, i, am, the, member, of, java, trainee]
+MyCommandLineRunner[--spring.output.ansi.enabled=always, i, am, the, member, of, java, trainee]
+MyApplicationRunner[--spring.output.ansi.enabled=always, i, am, the, member, of, java, trainee]
+seetha
+Laxman
+
+

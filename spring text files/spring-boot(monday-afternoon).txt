@@ -1,0 +1,302 @@
+Staters in spring boot
+
+spring boot starter-web
+spring boot starter-data-jpa
+spring boot starter-actuator
+spring boot starter-security
+spring boot starter-test      unit testing/integration testing
+
+
+
+spring applications
+
+
+runners in spring boot
+
+-CommandLineRunner(interface)  ->run(string...arg) one to many variable types 
+-ApplicationRunner(interface)   ->run(applicationArguments args[])
+
+
+lower the order higher the priority
+
+MyCommandLineRunner2(1)
+MyCommandLineRunner(2)
+MyApplicationRunner(3)
+
+
+
+package com.zensar.springbootdemo;
+
+import java.util.Arrays;
+
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(3)
+public class MyApplicationRunner implements ApplicationRunner{
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		System.out.println("MyApplicationRunner"+Arrays.toString((args.getSourceArgs())));
+		
+	}
+}
+--------------------------------
+package com.zensar.springbootdemo;
+
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(1)
+public class MyCommandLineRunner2 implements CommandLineRunner {
+
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("MyCommandLineRunner2"+Arrays.toString(args));
+		
+}
+}
+
+---------------------------------------
+
+package com.zensar.springbootdemo;
+
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(2) //lower the number higher the priority
+public class MyCommandLineRunner implements CommandLineRunner {
+
+	
+	
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("MyCommandLineRunner"+Arrays.toString(args));
+		
+}
+}
+-------------------------------------------------
+
+springbootdemoapplication.java
+
+
+package com.zensar.springbootdemo;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan(basePackages= {"com.zensar"})
+public class SpringBootDemoApplication implements CommandLineRunner {
+
+	public static void main(String... args) 
+	{
+		System.out.println("Ram");
+		SpringApplication.run(SpringBootDemoApplication.class, args);
+		System.out.println("Laxman");
+	}
+	
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("seetha");
+		
+	}
+
+}
+-------------------------------------------------------
+
+studentcontroller.java
+
+
+
+package com.zensar.springbootdemo.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zensar.springbootdemo.Student;
+import com.zensar.springbootdemo.service.StudentService;
+
+
+
+@Controller
+@RestController
+@RequestMapping("/student-api")   //http://localhost:4444/student-api/students
+public class StudentController {
+
+@Autowired	
+private StudentService studentService;
+	
+
+	// http://localhost:8080/student
+	//@RequestMapping("/students/{studentId}")
+	@GetMapping(value="/students/{studentId}",produces= {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+	public Student getStudent(@PathVariable("studentId") int studentId) {
+		//System.out.println("studentId" +studentId);
+		return studentService.getStudent(studentId);
+	}
+
+	// http://localhost:8080/students
+	//@RequestMapping(value = { "/students", "/listOfStudents" },method=RequestMethod.GET)
+	@GetMapping(value="/students",produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public List<Student> getAllStudents() {
+		return studentService.getAllStudents();
+
+	}
+	
+	// http://localhost:8080/students
+	//@RequestMapping(value = "/students",method=RequestMethod.POST)
+	@PostMapping(value="/students",consumes= {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+	public void insertStudent(@RequestBody Student student) {
+		studentService.insertStudent(student);
+		//System.out.println("HI");
+	}
+	
+	//@RequestMapping(value="/students/{studentId}",method=RequestMethod.PUT)
+	@PutMapping(value="/students/{studentId}",consumes= {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+	public void updateStudent(@PathVariable("studentId")int studentId,@RequestBody Student student) {
+		
+		studentService.updateStudent(studentId, student);
+		
+	}
+	
+	//http://localhost:8080/students -> Delete
+	//@RequestMapping(value="/students/{studentId}",method=RequestMethod.DELETE)
+	@DeleteMapping("/students/{studentId}")
+	public void deleteStudent(@PathVariable("studentId")int studentId) {
+		
+		studentService.deleteStudent(studentId);
+			}
+			
+		
+	}
+
+-------------------------------------
+studentservice.java
+
+package com.zensar.springbootdemo.service;
+import java.util.List;
+
+import com.zensar.springbootdemo.Student;
+
+public interface StudentService {
+	
+	public Student getStudent(int studentId);
+	public List<Student> getAllStudents();	
+	public  void insertStudent(Student  student);	
+	public  void updateStudent(int studentId ,Student student);	
+	public void deleteStudent(int studentId);	
+
+}
+
+-----------------------------------------------------
+
+studentserviceimpl.java
+
+package com.zensar.springbootdemo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.zensar.springbootdemo.Student;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	private List<Student> students = new ArrayList<Student>();
+	
+	
+
+	public StudentServiceImpl() {
+		students.add(new Student(1001, "Ram", 30));
+		students.add(new Student(1002, "Seeta", 28));
+		students.add(new Student(1003, "Laxman", 26));
+	}
+
+	@Override
+	public Student getStudent(int studentId) {
+		//System.out.println("studentId" +studentId);
+		for(Student student:students) {
+			if(student.getStudentId()==studentId) {
+				return student;
+			}
+			
+		}
+		return null;
+	}
+	
+	
+	
+
+	@Override
+	public List<Student> getAllStudents() {
+		return students;
+
+	}
+
+	@Override
+	public void insertStudent(Student student) {
+		students.add(student);
+
+	}
+
+	@Override
+	public void updateStudent(int studentId, Student student) {
+		Student student2 = getStudent(studentId);
+		student2.setStudentId(student.getStudentId());
+		student2.setStudentName(student.getStudentName());
+		student2.setStudentAge(student.getStudentAge());
+		
+		students.add(student2);
+		
+	}
+		
+	
+
+	@Override
+	public void deleteStudent(int studentId) {
+		for(int i=0;i<students.size();i++) {
+			Student student=students.get(i);
+			if(student.getStudentId()==studentId) {
+				 students.remove(student);
+			}
+			
+		}
+		
+	}
+}
+
+------------------------------------------------
+once we run the code going to springbootapplication.javaa file
+
+and perform the operations on postman

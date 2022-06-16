@@ -1,0 +1,872 @@
+@namedquery
+
+
+
+student.java
+
+
+package com.zensar.springbootdemo.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+
+
+@Entity
+@NamedQuery(name="Student.test",query="from Student s where s.studentName=?1")
+public class Student
+{
+	@Id
+	private int studentId;
+	private String studentName;
+	private int studentAge;
+	
+	
+	public Student() {
+		super();
+	}
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+	public int getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+	public int getStudentAge() {
+		return studentAge;
+	}
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge + "]";
+	}
+	
+	
+
+
+
+}
+
+
+---------------------------------------
+
+package com.zensar.springbootdemo.service;
+
+import java.util.List;
+
+import com.zensar.springbootdemo.dto.StudentDto;
+import com.zensar.springbootdemo.entity.Student;
+
+public interface StudentService {
+
+	public StudentDto getStudent(int studentId);
+
+	public List<StudentDto> getAllStudents();
+
+	public StudentDto insertStudent(StudentDto studentDto);
+
+	public void updateStudent(int studentId, StudentDto student);
+
+	public void deleteStudent(int studentId);
+
+	
+	List<Student> getByStudentName(String studentName);
+
+	List<Student> findByStudentNameAndStudentAge(String studentName,int age);
+	
+	
+}
+--------------------------------------------------
+
+package com.zensar.springbootdemo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.zensar.springbootdemo.dto.StudentDto;
+import com.zensar.springbootdemo.entity.Student;
+import com.zensar.springbootdemo.repository.StudentRepository;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public StudentDto getStudent(int studentId) {
+		Student student= studentRepository.findById(studentId).get();
+		
+		//StudentDto dto=mapToDto(student);
+		return modelMapper.map(student,StudentDto.class);
+	}
+	
+	
+	
+
+	@Override
+	public List<StudentDto> getAllStudents() {
+		List<Student> listOfStudents =  studentRepository.findAll();
+		
+		List<StudentDto> listOfStudentDto= new ArrayList<StudentDto>();
+		
+		for(Student student:listOfStudents) {
+			//listOfStudentDto.add(mapToDto(student));
+			listOfStudentDto.add(modelMapper.map(student,StudentDto.class));
+		}
+		return listOfStudentDto;
+	}
+
+	@Override
+	public StudentDto insertStudent(StudentDto studentDto) {
+		
+		//Student student=mapToEntity(studentDto);
+		Student student=modelMapper.map(studentDto,Student.class);
+		Student insertStudent=studentRepository.save(student);
+		//StudentDto mapToDto=mapToDto(insertStudent);
+		return modelMapper.map(insertStudent,StudentDto.class);
+		
+	}
+
+	@Override
+	public void updateStudent(int studentId, StudentDto studentDto) {
+		//Student student=mapToEntity(studentDto);
+		
+		Student student=modelMapper.map(studentDto,Student.class);
+		studentRepository.save(student);
+		
+	}
+		
+	
+
+	@Override
+	public void deleteStudent(int studentId) {
+		 studentRepository.deleteById(studentId);
+			
+		}
+
+
+
+	@Override
+	public List<Student> getByStudentName(String studentName) {
+		
+		return studentRepository.test(studentName);
+	}
+
+
+
+
+	@Override
+	public List<Student> findByStudentNameAndStudentAge(String studentName, int age) {
+		return studentRepository.findByStudentNameAndStudentAge(studentName,age);
+		
+	}
+
+
+
+
+
+
+
+	
+	
+	/*public StudentDto mapToDto(Student student) {
+		StudentDto dto = new StudentDto();
+		dto.setStudentId(student.getStudentId());
+		dto.setStudentName(student.getStudentName());
+		dto.setStudentAge(student.getStudentAge());
+		return dto;
+	}
+	
+	public Student mapToEntity(StudentDto studentDto) {
+		Student student=new Student();
+		student.setStudentId(studentDto.getStudentId());
+		student.setStudentName(studentDto.getStudentName());
+		student.setStudentAge(studentDto.getStudentAge());
+		return student;
+	}*/
+		
+	}
+
+------------------------------------------
+output: postman
+
+
+
+  post     http://localhost:8080/student-api/students
+
+
+<studentDto>
+                <studentId>2</studentId>
+                <studentName>vinod</studentName>
+                <studentAge>23</studentAge>
+        </studentDto>   
+
+---------------------------------------------------------------------
+get	http://localhost:8080/student-api/students/name/sweety
+
+<List>
+    <item>
+        <studentId>1</studentId>
+        <studentName>sweety</studentName>
+        <studentAge>22</studentAge>
+    </item>
+</List>
+
+
+
+
+<studentDto>
+                <studentId>2</studentId>
+                <studentName>vinod</studentName>
+                <studentAge>23</studentAge>
+        </studentDto>   
+
+
+----------------------------------------------------------
+ get  http://localhost:8080/student-api/students/vinod/23
+
+<List>
+    <item>
+        <studentId>2</studentId>
+        <studentName>vinod</studentName>
+        <studentAge>23</studentAge>
+    </item>
+</List>
+
+
+
+---------------------------------------------------------------multiple queres----------------
+
+
+package com.zensar.springbootdemo.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+
+@Entity
+
+
+/*
+ * @NamedQueries(value= {@NamedQuery(name="Student.test1",
+ * query="from Student s where s.studentName=?1 and s.studentAge=?2")})
+ * 
+ * @NamedNativeQuery(name = "Student.test", query =
+ * "select *from student where  student_name=?1",resultClass=Student.class)
+ */
+public class Student
+{
+	@Id
+	private int studentId;
+	private String studentName;
+	private int studentAge;
+	
+	
+	public Student() {
+		super();
+	}
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+	public int getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+	public int getStudentAge() {
+		return studentAge;
+	}
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge + "]";
+	}
+	
+	
+
+
+
+}
+
+
+-----------------------------------------------------
+
+
+
+third type
+
+package com.zensar.springbootdemo.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.zensar.springbootdemo.entity.Student;
+
+public interface StudentRepository extends JpaRepository<Student,Integer> {
+
+	@Query("from Student s where s.studentName=?1")
+	List<Student>test(String studentName);
+
+	@Query("from Student s where s.studentName=?1 and s.studentAge=?2")
+	List<Student> test1(String studentName,int age);
+	
+	
+
+	
+	
+
+}
+
+---------------------------------------------------
+more comfortable
+
+package com.zensar.springbootdemo.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.zensar.springbootdemo.entity.Student;
+
+public interface StudentRepository extends JpaRepository<Student,Integer> {
+
+	@Query(value="select *from student where  student_name=:name",nativeQuery=true)
+	List<Student>test(@Param("name")String studentName);
+
+	@Query("from Student s where s.studentName=?1 and s.studentAge=?2")
+	List<Student> test1(@Param("name")String studentName,@Param("age")int age);
+	
+	
+
+	
+	
+
+}
+--------------------------------
+run and check
+
+
+
+
+  get  http://localhost:8080/student-api/students/studentname/vinodkumar/
+
+
+<List>
+    <item>
+        <studentId>3</studentId>
+        <studentName>vinodkumar</studentName>
+        <studentAge>29</studentAge>
+    </item>
+</List>
+
+
+
+-------------------------------------------------------------
+
+
+
+
+pagination
+
+
+
+package com.zensar.springbootdemo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import com.zensar.springbootdemo.dto.StudentDto;
+import com.zensar.springbootdemo.entity.Student;
+import com.zensar.springbootdemo.repository.StudentRepository;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public StudentDto getStudent(int studentId) {
+		Student student = studentRepository.findById(studentId).get();
+
+		// StudentDto dto=mapToDto(student);
+		return modelMapper.map(student, StudentDto.class);
+	}
+
+
+//pagination
+	@Override
+	public List<StudentDto> getAllStudents() {
+		// List<Student> listOfStudents = studentRepository.findAll();
+
+		List<StudentDto> listOfStudentDto = new ArrayList<StudentDto>();
+
+	Page<Student> findAll = studentRepository.findAll(PageRequest.of(1, 4));
+
+	List<Student> content = findAll.getContent();
+
+	for(Student student:content)
+	{
+		// listOfStudentDto.add(mapToDto(student));
+		listOfStudentDto.add(modelMapper.map(student, StudentDto.class));
+
+		
+	}
+	return listOfStudentDto;
+	}
+
+
+//pagination
+
+
+
+	@Override
+	public StudentDto insertStudent(StudentDto studentDto) {
+		
+		//Student student=mapToEntity(studentDto);
+		Student student=modelMapper.map(studentDto,Student.class);
+		Student insertStudent=studentRepository.save(student);
+		//StudentDto mapToDto=mapToDto(insertStudent);
+		return modelMapper.map(insertStudent,StudentDto.class);
+		
+	}
+
+	@Override
+	public void updateStudent(int studentId, StudentDto studentDto) {
+		//Student student=mapToEntity(studentDto);
+		
+		Student student=modelMapper.map(studentDto,Student.class);
+		studentRepository.save(student);
+		
+	}
+
+	@Override
+	public void deleteStudent(int studentId) {
+		 studentRepository.deleteById(studentId);
+			
+		}
+
+	@Override
+	public List<StudentDto> getByStudentName(String studentName) {
+		List<StudentDto> studentDtos= new ArrayList<>();
+		List<Student> students = studentRepository.test(studentName);
+		for(Student student:students)
+			studentDtos.add(modelMapper.map(student,StudentDto.class));
+		return studentDtos;
+	}
+
+	@Override
+	public List<StudentDto> findByStudentNameAndStudentAge(String studentName, int age) {
+		List<StudentDto> studentDtos= new ArrayList<>();
+		List<Student> students = studentRepository.test1(studentName,age);
+		for(Student student:students)
+			studentDtos.add(modelMapper.map(student,StudentDto.class));
+		return studentDtos;
+		
+	}
+
+	/*
+	 * public StudentDto mapToDto(Student student) { StudentDto dto = new
+	 * StudentDto(); dto.setStudentId(student.getStudentId());
+	 * dto.setStudentName(student.getStudentName());
+	 * dto.setStudentAge(student.getStudentAge()); return dto; }
+	 * 
+	 * public Student mapToEntity(StudentDto studentDto) { Student student=new
+	 * Student(); student.setStudentId(studentDto.getStudentId());
+	 * student.setStudentName(studentDto.getStudentName());
+	 * student.setStudentAge(studentDto.getStudentAge()); return student; }
+	 */
+
+}
+-
+
+output:
+ get    http://localhost:8080/student-api/students/
+
+<List>
+    <item>
+        <studentId>5</studentId>
+        <studentName>vinod</studentName>
+        <studentAge>35</studentAge>
+    </item>
+    <item>
+        <studentId>6</studentId>
+        <studentName>raju</studentName>
+        <studentAge>35</studentAge>
+    </item>
+    <item>
+        <studentId>7</studentId>
+        <studentName>raja</studentName>
+        <studentAge>35</studentAge>
+    </item>
+    <item>
+        <studentId>8</studentId>
+        <studentName>raja</studentName>
+        <studentAge>35</studentAge>
+    </item>
+</List>
+
+---------------------------------------------------------
+
+to get the list in pagenumber and page size
+
+
+
+package com.zensar.springbootdemo.service;
+
+import java.util.List;
+
+import com.zensar.springbootdemo.dto.StudentDto;
+import com.zensar.springbootdemo.entity.Student;
+
+public interface StudentService {
+
+	public StudentDto getStudent(int studentId);
+
+	public List<StudentDto> getAllStudents(int pageNumber,int pageSize);
+
+	public StudentDto insertStudent(StudentDto studentDto);
+
+	public void updateStudent(int studentId, StudentDto student);
+
+	public void deleteStudent(int studentId);
+
+	
+	List<StudentDto> getByStudentName(String studentName);
+
+	List<StudentDto> findByStudentNameAndStudentAge(String studentName,int age);
+	
+	
+}
+-------------------------------------------------
+package com.zensar.springbootdemo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import com.zensar.springbootdemo.dto.StudentDto;
+import com.zensar.springbootdemo.entity.Student;
+import com.zensar.springbootdemo.repository.StudentRepository;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public StudentDto getStudent(int studentId) {
+		Student student = studentRepository.findById(studentId).get();
+
+		// StudentDto dto=mapToDto(student);
+		return modelMapper.map(student, StudentDto.class);
+	}
+
+	@Override
+	public List<StudentDto> getAllStudents(int pageNumber,int pageSize) {
+		// List<Student> listOfStudents = studentRepository.findAll();
+
+		List<StudentDto> listOfStudentDto = new ArrayList<StudentDto>();
+
+	Page<Student> findAll = studentRepository.findAll(PageRequest.of(pageNumber, pageSize));
+
+	List<Student> content = findAll.getContent();
+
+	for(Student student:content)
+	{
+		// listOfStudentDto.add(mapToDto(student));
+		listOfStudentDto.add(modelMapper.map(student, StudentDto.class));
+
+		
+	}
+	return listOfStudentDto;
+	}
+
+	@Override
+	public StudentDto insertStudent(StudentDto studentDto) {
+		
+		//Student student=mapToEntity(studentDto);
+		Student student=modelMapper.map(studentDto,Student.class);
+		Student insertStudent=studentRepository.save(student);
+		//StudentDto mapToDto=mapToDto(insertStudent);
+		return modelMapper.map(insertStudent,StudentDto.class);
+		
+	}
+
+	@Override
+	public void updateStudent(int studentId, StudentDto studentDto) {
+		//Student student=mapToEntity(studentDto);
+		
+		Student student=modelMapper.map(studentDto,Student.class);
+		studentRepository.save(student);
+		
+	}
+
+	@Override
+	public void deleteStudent(int studentId) {
+		 studentRepository.deleteById(studentId);
+			
+		}
+
+	@Override
+	public List<StudentDto> getByStudentName(String studentName) {
+		List<StudentDto> studentDtos= new ArrayList<>();
+		List<Student> students = studentRepository.test(studentName);
+		for(Student student:students)
+			studentDtos.add(modelMapper.map(student,StudentDto.class));
+		return studentDtos;
+	}
+
+	@Override
+	public List<StudentDto> findByStudentNameAndStudentAge(String studentName, int age) {
+		List<StudentDto> studentDtos= new ArrayList<>();
+		List<Student> students = studentRepository.test1(studentName,age);
+		for(Student student:students)
+			studentDtos.add(modelMapper.map(student,StudentDto.class));
+		return studentDtos;
+		
+	}
+
+	/*
+	 * public StudentDto mapToDto(Student student) { StudentDto dto = new
+	 * StudentDto(); dto.setStudentId(student.getStudentId());
+	 * dto.setStudentName(student.getStudentName());
+	 * dto.setStudentAge(student.getStudentAge()); return dto; }
+	 * 
+	 * public Student mapToEntity(StudentDto studentDto) { Student student=new
+	 * Student(); student.setStudentId(studentDto.getStudentId());
+	 * student.setStudentName(studentDto.getStudentName());
+	 * student.setStudentAge(studentDto.getStudentAge()); return student; }
+	 */
+
+}
+-------------------------------------
+
+package com.zensar.springbootdemo.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zensar.springbootdemo.dto.StudentDto;
+import com.zensar.springbootdemo.entity.Student;
+import com.zensar.springbootdemo.service.StudentService;
+
+@Controller
+@RestController
+@RequestMapping(value="/student-api", produces = { MediaType.APPLICATION_JSON_VALUE,
+		MediaType.APPLICATION_XML_VALUE },consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }) // http://localhost:4444/student-api/students
+public class StudentController {
+
+	@Autowired
+	private StudentService studentService;
+
+	// http://localhost:8080/student
+	// @RequestMapping("/students/{studentId}")
+	@GetMapping(value = "/students/{studentId}")
+	public ResponseEntity<StudentDto> getStudent(@PathVariable("studentId") int studentId) {
+		// System.out.println("studentId" +studentId);
+		return new ResponseEntity<StudentDto>(studentService.getStudent(studentId),HttpStatus.OK);
+	
+	}
+
+	// http://localhost:8080/students
+	// @RequestMapping(value = { "/students", "/listOfStudents"
+	// },method=RequestMethod.GET)
+	@GetMapping(value = {"/students","/listOfStudents"})
+	public ResponseEntity<List<StudentDto>> getAllStudents(@RequestParam("pageNumber")int pageNumber,@RequestParam("pageSize")int pageSize) {
+		return new ResponseEntity<List<StudentDto>>(studentService.getAllStudents(pageNumber,pageSize),HttpStatus.OK);
+
+	}
+
+	// http://localhost:8080/students
+	// @RequestMapping(value = "/students",method=RequestMethod.POST)
+	@PostMapping(value = "/students")
+	public ResponseEntity<StudentDto> insertStudent(@RequestBody StudentDto studentDto) {
+		//return studentService.insertStudent(studentDto);
+		return new ResponseEntity<StudentDto>(studentService.insertStudent(studentDto),HttpStatus.CREATED);
+		// System.out.println("HI");
+	}
+
+	// @RequestMapping(value="/students/{studentId}",method=RequestMethod.PUT)
+	@PutMapping(value = "/students/{studentId}")
+	public void updateStudent(@PathVariable("studentId") int studentId, @RequestBody StudentDto studentDto) {
+
+		studentService.updateStudent(studentId, studentDto);
+
+	}
+
+	// http://localhost:8080/students -> Delete
+	// @RequestMapping(value="/students/{studentId}",method=RequestMethod.DELETE)
+	@DeleteMapping("/students/{studentId}")
+	public ResponseEntity<String> deleteStudent(@PathVariable("studentId") int studentId) {
+		studentService.deleteStudent(studentId);
+		return new ResponseEntity<String>("Student deleted succesfully",HttpStatus.OK);
+	}
+	
+	
+	
+	@GetMapping(value="/students/studentname/{studentName}")
+	public ResponseEntity<List<StudentDto>> getByStudentName(@PathVariable("studentName")String studentName) {
+	return new ResponseEntity<List<StudentDto>>(studentService.getByStudentName(studentName),HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value="/students/{studentName}/{studentAge}")
+	public ResponseEntity< List<StudentDto>> findByStudentNameAndStudentAge(@PathVariable("studentName") String studentName,@PathVariable("studentAge") int age) {
+		return new ResponseEntity<List<StudentDto>> (studentService.findByStudentNameAndStudentAge(studentName,age),HttpStatus.OK);
+	}
+	
+}
+
+
+-----------------------------------
+run the code 
+
+
+
+once posting of data
+
+post  http://localhost:8080/student-api/students
+
+ get   http://localhost:8080/student-api/students?pageNumber=1&pageSize=2
+
+
+
+<List>
+    <item>
+        <studentId>3</studentId>
+        <studentName>vinodkumar</studentName>
+        <studentAge>38</studentAge>
+    </item>
+    <item>
+        <studentId>4</studentId>
+        <studentName>kumar</studentName>
+        <studentAge>38</studentAge>
+    </item>
+</List>
+
+
+
+ get  http://localhost:8080/student-api/students?pageNumber=0&pageSize=8
+
+
+<List>
+    <item>
+        <studentId>1</studentId>
+        <studentName>vinod</studentName>
+        <studentAge>398</studentAge>
+    </item>
+    <item>
+        <studentId>2</studentId>
+        <studentName>vinodkumar</studentName>
+        <studentAge>39</studentAge>
+    </item>
+    <item>
+        <studentId>3</studentId>
+        <studentName>vinodkumar</studentName>
+        <studentAge>38</studentAge>
+    </item>
+    <item>
+        <studentId>4</studentId>
+        <studentName>kumar</studentName>
+        <studentAge>38</studentAge>
+    </item>
+    <item>
+        <studentId>5</studentId>
+        <studentName>kumari</studentName>
+        <studentAge>18</studentAge>
+    </item>
+    <item>
+        <studentId>6</studentId>
+        <studentName>swety</studentName>
+        <studentAge>22</studentAge>
+    </item>
+    <item>
+        <studentId>7</studentId>
+        <studentName>sweety</studentName>
+        <studentAge>22</studentAge>
+    </item>
+    <item>
+        <studentId>8</studentId>
+        <studentName>mummy</studentName>
+        <studentAge>29</studentAge>
+    </item>
+</List>
+
+
+---------------------------------------------------------------------------

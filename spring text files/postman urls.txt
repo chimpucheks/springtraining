@@ -1,0 +1,3 @@
+http://localhost:8080/student-api/students/1001
+
+http://localhost:8080/coupon-api/coupons/

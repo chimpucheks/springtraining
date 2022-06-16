@@ -1,0 +1,402 @@
+hander method
+
+
+multi hander method
+
+@RestController
+public class HomeController {
+
+	//http://localhost:8080/
+	@RequestMapping("/")
+	//handling methods
+	public String sayHello() {
+		return "<h2> Welcome to Spring Boot</h2>";
+	}
+	
+	@RequestMapping("/ghj")
+	public String sayError() {
+		return "<h2> Welcome </h2>";
+	}
+}
+-----------------------------------------
+
+Single data of student
+--------------------
+
+StudentController.java
+
+package com.zensar.springbootdemo.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zensar.springbootdemo.Student;
+
+@RestController
+public class StudentController 
+{
+	private List<Student> students;
+	
+	
+	@RequestMapping("/student")
+	public Student getStudent() {
+		return new Student(1001,"Ram",30);
+		
+	}
+}
+
+-----------
+Student.java
+
+
+-------
+
+
+package com.zensar.springbootdemo;
+
+public class Student {
+	private int studentId;
+	private String studentName;
+	private int studentAge;
+	
+	
+	public Student() {
+		super();
+	}
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+	public int getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+	public int getStudentAge() {
+		return studentAge;
+	}
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge + "]";
+	}
+	
+}
+--------------------------
+
+
+O/P:-IN BROWSER TYPE
+http://localhost:4444/student
+
+{"studentId":1001,"studentName":"Ram","studentAge":30}
+
+-------------------------------
+
+
+FOR MUL STUDENTS RETREIVING
+
+
+--------------------
+
+Change the StudentController.java class & Student.javais same both for single or mul students data
+
+---------------------
+
+
+StudentController.java
+
+-----------
+
+package com.zensar.springbootdemo.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zensar.springbootdemo.Student;
+
+@RestController
+public class StudentController 
+{
+	private List<Student> students;
+	
+	@RequestMapping("/students")
+	public List<Student> getAllStudents() {
+	students=new ArrayList<Student>();
+	students.add(new Student(1001,"Ram",30));
+	students.add(new Student(1002,"Hari",31));
+	students.add(new Student(1003,"John",32));
+	return students;
+	}
+}
+--------------------------------------------------
+
+output:-- http://localhost:4444/students
+
+
+
+[{"studentId":1001,"studentName":"Ram","studentAge":30},
+{"studentId":1002,"studentName":"Hari","studentAge":31},
+{"studentId":1003,"studentName":"John","studentAge":32}]
+
+---------------------------------------------------------------
+
+
+package com.zensar.springbootdemo.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zensar.springbootdemo.Student;
+
+@RestController
+public class StudentController 
+{
+	
+	private List<Student> students=new ArrayList<Student>();
+	
+	public StudentController() {
+		super();
+		students.add(new Student(1001,"Ram",30));
+		students.add(new Student(1002,"Hari",31));
+		students.add(new Student(1003,"John",32));
+		
+		// TODO Auto-generated constructor stub
+	}
+
+	@RequestMapping("/student")
+	public Student getStudent() {
+		return new Student(1001,"Ram",30);
+		
+	}
+	
+	
+	//it retrieves the same data for these 2 args
+	
+	//@RequestMapping("/students")
+	@RequestMapping(value={"/students","/listOfStudents"})
+	public List<Student> getAllStudents() {
+	return students;
+	}
+}
+
+---------------------------------
+
+output:
+
+http://localhost:4444/student
+
+{"studentId":1001,"studentName":"Ram","studentAge":30}
+
+
+http://localhost:4444/students
+
+
+[{"studentId":1001,"studentName":"Ram","studentAge":30},
+{"studentId":1002,"studentName":"Hari","studentAge":31},
+{"studentId":1003,"studentName":"John","studentAge":32}]
+
+
+http://localhost:4444/listOfStudents
+
+
+
+[{"studentId":1001,"studentName":"Ram","studentAge":30},
+{"studentId":1002,"studentName":"Hari","studentAge":31},
+{"studentId":1003,"studentName":"John","studentAge":32}]
+
+
+
+---------------------------------------------------------
+
+StudentController.java
+
+
+
+package com.zensar.springbootdemo.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zensar.springbootdemo.Student;
+
+@RestController
+public class StudentController 
+{
+	
+	private List<Student> students=new ArrayList<Student>();
+	
+	public StudentController() {
+		super();
+		students.add(new Student(1001,"Ram",30));
+		students.add(new Student(1002,"Hari",31));
+		students.add(new Student(1003,"John",32));
+	}
+
+	@RequestMapping("/student/{studentId}")
+	public Student getStudent(@PathVariable("studentId") int studentId) {
+		//System.out.println("studentId"+studentId);
+		for(Student student:students) {
+			if(student.getStudentId()==studentId) {
+				return student;
+				
+			}
+		}
+		return null;
+	}
+	
+	@RequestMapping(value={"/students","/listOfStudents"})
+	public List<Student> getAllStudents() {
+	return students;
+	}
+}
+
+---------------
+
+output:
+1.
+http://localhost:4444/student/1002
+
+{"studentId":1002,"studentName":"Hari","studentAge":31}
+
+2. http://localhost:4444/student/1001
+
+{"studentId":1001,"studentName":"Ram","studentAge":30}
+
+3> http://localhost:4444/student/1003
+
+{"studentId":1003,"studentName":"John","studentAge":32}
+-----------------------------------------------------------
+
+get data from
+
+
+
+studentcontroller.java
+
+
+
+package com.zensar.springbootdemo.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zensar.springbootdemo.Student;
+
+@RestController
+public class StudentController 
+{
+	
+	private List<Student> students=new ArrayList<Student>();
+	
+	public StudentController() {
+		super();
+		students.add(new Student(1001,"Ram",30));
+		students.add(new Student(1002,"Hari",31));
+		students.add(new Student(1003,"John",32));
+	}
+
+	@RequestMapping("/student/{studentId}")
+	public Student getStudent(@PathVariable("studentId") int studentId) {
+		//System.out.println("studentId"+studentId);
+		for(Student student:students) {
+			if(student.getStudentId()==studentId) {
+				return student;
+			}
+		}
+		return null;
+	}
+	
+	@RequestMapping(value={"/students","/listOfStudents"},method=RequestMethod.GET)
+	public List<Student> getAllStudents() {
+	return students;
+	}
+	
+	@RequestMapping(value="/students",method=RequestMethod.POST)
+	public void insertStudent(@RequestBody Student student) {
+		students.add(student);
+		System.out.println("HI");
+	}
+}
+-----------------
+
+
+output will be given in postman tool
+using get method & post method using url : http://localhost:4444/students
+
+
+for post:
+
+
+post->body->raw->in drop down select json ->
+give data
+{
+        "studentId": 1004,
+        "studentName": "John",
+        "studentAge": 32
+    }
+
+click on send.
+
+for get
+
+get->url:http://localhost:4444/students -> send
+----------------------------
+
+
+delete in postman
+
+@RequestMapping(value="/students/{studentId}",method=RequestMethod.DELETE)
+	public void deleteStudent(@PathVariable("studentId")int studentId) {
+		for(int i=0;i<students.size();i++) {
+			Student student=students.get(i);
+			if(student.getStudentId()==studentId) {
+				students.remove(student);
+			}
+		}
+	}
+
+-------------------------------
+
+output: delete->url:http://localhost:4444/students/1004  -> send
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+

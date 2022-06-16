@@ -1,0 +1,436 @@
+package com.zensar.spring_core_demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.zensar.beans.Product;
+import com.zensar.beans.Student;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
+
+		//Product p2 = (Product) context.getBean("p2");
+		
+		//context.getBean(Product.class, "p2");
+		
+		// Product p1=(Product)context.getBean("p1");
+		
+		
+		Student student=context.getBean( "s1",Student.class);
+		Student student1=context.getBean( "s1",Student.class);
+		 
+		//System.out.println(p1);
+		System.out.println(student);
+		System.out.println(student1);
+
+		/*
+		 * Product product=new Product(1,"lapy",40000); System.out.println( product);
+		 */
+		
+		((AbstractApplicationContext) context).close();
+	}
+}
+
+
+
+----------------------------------------------
+
+package com.zensar.beans;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+//import java.util.Map;
+//import java.util.Properties;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class Student implements InitializingBean,DisposableBean{
+
+	private int studentId;
+	private String studentName;
+	private int studentAge;
+	
+	private Address address;
+	
+	
+
+	public Student() {
+		super();
+		System.out.println("iam inside deafult constructir");
+		// TODO Auto-generated constructor stub
+	}
+	
+	@PostConstruct
+	public void myInit() {
+		System.out.println("iam inside myinit method");
+	}
+	
+	@PreDestroy
+	public void myDestroy() {
+		// TODO Auto-generated method stub
+		System.out.println("iam inside destroy method");
+	}
+
+
+	public Student(int studentId, String studentName, int studentAge, Address address) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.address = address;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentAge() {
+		return studentAge;
+	}
+
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge
+				+ ", address=" + address + "]";
+	}
+
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*
+	 * public void afterPropertiesSet() throws Exception { // TODO Auto-generated
+	 * method stub System.out.println("iam inside afterset method"); }
+	 */
+
+	
+	
+	
+	
+	
+	/*
+	 * @Autowired
+	 * 
+	 * @Qualifier("add2") private Address address;
+	 * 
+	 * 
+	 * // private Map<Integer,Address> address; private Map<Address, Integer>
+	 * address;
+	 * 
+	 * private Properties properties;
+	 * 
+	 * public Student() { super();
+	 * 
+	 * }
+	 * 
+	 * public Student(int studentId, String studentName, int studentAge,
+	 * Map<Address, Integer> address) { super(); this.studentId = studentId;
+	 * this.studentName = studentName; this.studentAge = studentAge; this.address =
+	 * address; }
+	 * 
+	 * public int getStudentId() { return studentId; }
+	 * 
+	 * public void setStudentId(int studentId) { this.studentId = studentId; }
+	 * 
+	 * public String getStudentName() { return studentName; }
+	 * 
+	 * public void setStudentName(String studentName) { this.studentName =
+	 * studentName; }
+	 * 
+	 * public int getStudentAge() { return studentAge; }
+	 * 
+	 * public void setStudentAge(int studentAge) { this.studentAge = studentAge; }
+	 * 
+	 * public Map<Address, Integer> getAddress() { return address; }
+	 * 
+	 * public void setAddress(Map<Address, Integer> address) { this.address =
+	 * address; }
+	 * 
+	 * public Properties getProperties() { return properties; }
+	 * 
+	 * public void setProperties(Properties properties) { this.properties =
+	 * properties; }
+	 * 
+	 * @Override public String toString() { return "Student [studentId=" + studentId
+	 * + ", studentName=" + studentName + ", studentAge=" + studentAge +
+	 * ", address=" + address + ", properties=" + properties + "]"; }
+	 */
+
+}
+
+
+------------------------------------------------------------------------
+
+
+package com.zensar.beans;
+
+public class Product {
+
+	private int productId;
+	private String productName;
+	private int productCost;
+
+	public Product()
+	{
+		super();
+		System.out.println("Inside product Bean ! ! !");
+	}
+	
+	
+
+	public Product(String productId, String productName, String productCost) {
+		System.out.println("inside product string");
+		
+	}
+
+
+
+	public Product(int productId, String productName, int productCost) {
+		super();
+		System.out.println("inside the constructor");
+		this.productId = productId;
+		this.productName = productName;
+		this.productCost = productCost;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId)
+	{
+		System.out.println("inside the productId");
+		this.productId = productId;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		System.out.println("inside the productName");
+		this.productName = productName;
+	}
+
+	public int getProductCost() {
+		return productCost;
+	}
+
+	public void setProductCost(int productCost) 
+	{
+		System.out.println("inside the productCost");
+		this.productCost = productCost;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", productName=" + productName + ", productCost=" + productCost
+				+ "]";
+	}
+
+}
+
+
+---------------------------------------------------------
+spring-core-demo/pom.xml file
+
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.zensar</groupId>
+  <artifactId>spring-core-demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>spring-core-demo</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.3.20</version>
+</dependency>
+  
+  
+  <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+<dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+    <version>2.0.1.Final</version>
+</dependency>
+  
+ <dependency>
+<groupId>javax.annotation</groupId>
+<artifactId>javax.annotation-api</artifactId>
+<version>1.3.2</version>
+</dependency>
+  
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
+
+
+------------------------------------------------------------
+context.xml file
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<!-- <bean id="p1" class="com.zensar.beans.Product"> <property name="productId"> 
+		<value>1</value> </property> <property name="productName" value="dell"></property> 
+		<property name="productCost" value="50000"></property> </bean> -->
+	<!-- <bean id="p2" class="com.zensar.beans.Product"> <constructor-arg index="0"> 
+		<value type="int">101</value> </constructor-arg> <constructor-arg> <value>Fridge</value> 
+		</constructor-arg> <constructor-arg index="2"> <value type="int">20000</value> 
+		</constructor-arg> </bean> -->
+
+	<context:component-scan
+		base-package="com.studytonight.community"></context:component-scan>
+
+
+	<bean id="s1" class="com.zensar.beans.Student" scope="prototype">
+		<property name="studentId" value="123"></property>
+		<property name="studentName" value="Ram"></property>
+		<property name="studentAge" value="30"></property>
+		<property name="address" ref="add1">
+		</property>
+	</bean>
+
+	<!-- <bean id="s2" class="com.zensar.beans.Student">
+		<property name="studentId" value="32"></property>
+		<property name="studentName" value="Hari"></property>
+		<property name="studentAge" value="20"></property>
+		<property name="address" ref="add1"></property>
+	</bean> -->
+
+	<bean id="add1" class="com.zensar.beans.Address">
+				<property name="state" value="AP"></property>
+				<property name="city" value="Vizag"></property>
+				<property name="pincode" value="530024"></property>
+	</bean>
+
+</beans>
+
+
+----------------------------------------------------------------
+
+
+package com.zensar.beans;
+
+public class Address {
+ 
+	private String state;
+	private String city;
+	private int pincode;
+	
+	public Address() {
+		super();
+		
+	}
+
+	public Address(String state, String city, int pincode) {
+		super();
+		this.state = state;
+		this.city = city;
+		this.pincode = pincode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [state=" + state + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	
+	
+	
+	
+		
+}
+

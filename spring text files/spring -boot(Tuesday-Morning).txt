@@ -1,0 +1,374 @@
+Tuesday
+
+
+
+
+
+package com.zensar.springbootdemo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.zensar.springbootdemo.Student;
+import com.zensar.springbootdemo.repository.StudentRepository;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	
+	@Autowired
+	private StudentRepository studentRepository;
+
+	
+
+	@Override
+	public Student getStudent(int studentId) {
+		return studentRepository.getStudent(studentId);
+	}
+	
+	
+	
+
+	@Override
+	public List<Student> getAllStudents() {
+		return studentRepository.getAllStudents();
+
+	}
+
+	@Override
+	public void insertStudent(Student student) {
+	 studentRepository.insertStudent(student);
+
+	}
+
+	@Override
+	public void updateStudent(int studentId, Student student) {
+		 studentRepository.updateStudent(studentId,student);
+		
+	}
+		
+	
+
+	@Override
+	public void deleteStudent(int studentId) {
+		 studentRepository.deleteStudent(studentId);
+			
+		}
+		
+	}
+
+-------------------------------------
+
+
+package com.zensar.springbootdemo.repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.zensar.springbootdemo.Student;
+
+@Repository
+public class StudentRepositoryImpl implements StudentRepository {
+
+	private List<Student> students = new ArrayList<Student>();
+
+	public StudentRepositoryImpl() {
+		students.add(new Student(1001, "Ram", 30));
+		students.add(new Student(1002, "Seeta", 28));
+		students.add(new Student(1003, "Laxman", 26));
+
+	}
+
+	@Override
+	public Student getStudent(int studentId) {
+		// System.out.println("studentId" +studentId);
+		for (Student student : students) {
+			if (student.getStudentId() == studentId) {
+				return student;
+			}
+
+		}
+		return null;
+	}
+
+	@Override
+	public List<Student> getAllStudents() {
+		return students;
+
+	}
+
+	@Override
+	public void insertStudent(Student student) {
+		students.add(student);
+
+	}
+
+	@Override
+	public void updateStudent(int studentId, Student student) {
+		Student student2 = getStudent(studentId);
+		student2.setStudentId(student.getStudentId());
+		student2.setStudentName(student.getStudentName());
+		student2.setStudentAge(student.getStudentAge());
+
+		//students.add(student2);
+
+	}
+
+	@Override
+	public void deleteStudent(int studentId) {
+		for (int i = 0; i < students.size(); i++) {
+			Student student = students.get(i);
+			if (student.getStudentId() == studentId) {
+				students.remove(student);
+			}
+
+		}
+
+	}
+}
+-------------------------------------------------------
+
+package com.zensar.springbootdemo.repository;
+
+import java.util.List;
+
+import com.zensar.springbootdemo.Student;
+
+public interface StudentRepository {
+	public Student getStudent(int studentId);
+	public List<Student> getAllStudents();	
+	public  void insertStudent(Student  student);	
+	public  void updateStudent(int studentId ,Student student);	
+	public void deleteStudent(int studentId);	
+
+}
+
+
+------------------------------------------
+
+package com.zensar.springbootdemo;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan(basePackages= {"com.zensar"})
+public class SpringBootDemoApplication implements CommandLineRunner {
+
+	public static void main(String... args) 
+	{
+		System.out.println("Ram");
+		SpringApplication.run(SpringBootDemoApplication.class, args);
+		System.out.println("Laxman");
+	}
+	
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("seetha");
+		
+	}
+
+}
+
+
+
+
+
+-------------------------------
+to run here and see the results in postman
+
+---------------------------------------------------------------
+
+
+
+connecting sprinboot application to database
+
+added starters and database
+jpa and h2
+
+deleted the studentrepositoryiml file 
+removed methods in studentrepository
+
+and extends
+
+---------------------------------------------
+package com.zensar.springbootdemo.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zensar.springbootdemo.entity.Student;
+
+public interface StudentRepository extends JpaRepository<Student,Integer> {
+
+	
+	
+
+}
+-----------------------------------------------------------------
+
+and some errors ---------
+
+
+package com.zensar.springbootdemo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.zensar.springbootdemo.entity.Student;
+import com.zensar.springbootdemo.repository.StudentRepository;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	
+	@Autowired
+	private StudentRepository studentRepository;
+
+	
+
+	@Override
+	public Student getStudent(int studentId) {
+		return studentRepository.findById(studentId).get();----
+	}
+	
+	
+	
+
+	@Override
+	public List<Student> getAllStudents() {
+		return studentRepository.findAll();-----
+
+	}
+
+	@Override
+	public void insertStudent(Student student) {
+	 studentRepository.save(student);------
+
+	}
+
+	@Override
+	public void updateStudent(int studentId, Student student) {
+		 studentRepository.save(student);-----
+		
+	}
+		
+	
+
+	@Override
+	public void deleteStudent(int studentId) {
+		 studentRepository.deleteById(studentId);-------
+			
+		}
+		
+	}
+
+
+------------------------------------------------------------
+com.zensar.springbootdemo.entity
+
+student.java
+
+and added @Entity ,@Id to student.java
+
+
+
+
+
+package com.zensar.springbootdemo.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Student
+{
+	@Id
+	private int studentId;
+	private String studentName;
+	private int studentAge;
+	
+	
+	public Student() {
+		super();
+	}
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+	public int getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+	public int getStudentAge() {
+		return studentAge;
+	}
+	public void setStudentAge(int studentAge) {
+		this.studentAge = studentAge;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge + "]";
+	}
+	
+	
+
+
+
+}
+
+
+------------------------------------------------------------------------
+we can post the data in postman and see the results in h2 database
+
+
+
+connecting to h2 data base
+
+go to chrome
+
+localhost8080/h2
+give enter
+
+---------------------------------------------
+English
+    Preferences    Tools    Help
+
+Login	
+Saved Settings:	Generic H2 (Embedded)
+Setting Name:	Generic H2 (Embedded)
+  
+Driver Class:	org.h2.Driver
+JDBC URL:	jdbc:h2:mem:studentdb
+User Name:	admin
+Password:	admin@123
+------------------------------------------------
+need to search in console once run the code 
+   
+default    /h2-console
+
+url
+jdbc:h2:mem:b0ea83b5-c0eb-40b2-92be-34fefbfefd59'
+
+
+---------------------------------------------------------

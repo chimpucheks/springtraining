@@ -1,0 +1,165 @@
+Hibernate-demo
+src->com.zensar.client->Client.java
+com.zensar.entity
+Product.java
+hibernate.cfg.xml
+client file
+
+
+
+package com.zensar.client;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.zensar.entity.Product;
+//import com.zensar.entity.Student;
+
+public class Client
+{
+	public static void main(String args[])
+	{
+		
+		Product product =new Product(1,"laptop",9999);
+		
+	
+		SessionFactory factory=new Configuration().configure().buildSessionFactory();
+		
+		Session session = factory.openSession();
+		
+		session.save(product);
+		
+		System.out.println("product saved Successfullyyyy !!!");
+		
+		Transaction transaction = session.beginTransaction();
+		
+		transaction.commit();
+		
+		session.close();
+		
+		
+		//product.setProductId(1);
+		//product.setProductName("Laptop");
+		//product.setProductCost(59999);
+		
+		//System.out.println(product.getProductName());
+		
+		//System.out.println(product.getProductCost());
+		//System.out.println(product);
+		
+		//Student student1 =new Student(1,"Ram",28);
+	
+		//System.out.println(student1);
+	}
+	}
+
+
+-------------------------------------------------
+product file
+
+
+package com.zensar.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Product 
+{
+	@Id               //making productId as primary key
+	private int productId;
+	private String productName;
+	private int productCost;
+	public Product() {
+		super();
+	}
+	public Product(int productId, String productName, int productCost) {
+		super();
+		this.productId =productId;
+		this.productName =productName;
+		this.productCost =productCost;
+		
+	}
+	
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public int getProductCost() {
+		return productCost;
+	}
+	public void setProductCost(int productCost) {
+		this.productCost = productCost;
+	}
+	
+		@Override
+		public String toString() {
+			return "product [productId=" + productId + ", productName=" + productName + ", productCost=" + productCost +"]";
+		}
+	
+	
+}
+
+
+
+------------------------------------
+studentfile
+
+package com.zensar.entity;
+
+public class Student {
+	private int studentId;
+	private String studentName;
+	private int studentAge;
+	public Student() //default constructor
+	{
+		super();
+	}
+	public Student(int studentId, String studentName, int studentAge) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentAge=" + studentAge + "]";
+	}
+	
+}
+
+
+---------------------------------------------
+
+hibernate filr
+
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+ 
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/javabatch</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Zensar@123</property>
+        <!--  <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>-->
+        <property name="hibernate.hbm2ddl.auto">create</property> 
+        
+        <mapping class="com.zensar.entity.Product"/>
+    </session-factory>
+ 
+</hibernate-configuration>
+
+
+

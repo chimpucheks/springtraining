@@ -1,0 +1,68 @@
+package com.zensar.springbootdemo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.zensar.springbootdemo.entity.Coupon;
+@Service
+public class CouponServiceImpl implements CouponService {
+	
+	
+	List<Coupon> coupons=new ArrayList<Coupon>();
+	
+	
+	public CouponServiceImpl() {
+		coupons.add(new Coupon(1,"DORS80078U7VD2","01-01-2000"));
+		coupons.add(new Coupon(2,"EORS2000MR6F0W","01-01-2000"));
+		coupons.add(new Coupon(3,"EORS30078U7VD2","2000-01-01"));
+		
+	}
+
+	@Override
+	public Coupon getCoupon(int couponId) {
+		for (Coupon coupon : coupons) {
+			if (coupon.getCouponId() == couponId) {
+				return coupon;
+			}
+		}
+		return null;
+	}
+	
+
+	@Override
+	public List<Coupon> getCoupons() {
+		
+		return coupons;
+	}
+
+	@Override
+	public void insertCoupon(Coupon coupon) {
+		coupons.add(coupon);
+		
+	}
+
+	@Override
+	public void updateCoupon(int couponId, Coupon coupon) {
+		Coupon coupons =getCoupon(couponId);
+		coupons.setCouponId(coupon.getCouponId());
+		coupons.setCouponCode(coupon.getCouponCode());
+		coupons.setCouponExpireDate(coupon.getCouponExpireDate());
+	}
+
+	@Override
+	public void deleteCoupon(int couponId) {
+		for(int i=0;i<coupons.size();i++) {
+			Coupon coupon = coupons.get(i);
+			if(coupon.getCouponId()==couponId) {
+				coupons.remove(coupon);
+			}
+		}		
+		
+	}
+
+}
+
+CouponServiceImpl.java
+------------------------------------------------------------
