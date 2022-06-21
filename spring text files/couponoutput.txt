@@ -1,0 +1,192 @@
+coupons
+
+
+mysql> select * from coupon;
++-----------+---------------+--------------------+
+| coupon_id | coupon_code   | coupon_expire_date |
++-----------+---------------+--------------------+
+|         1 | ESOWU36NCOE7  | 29-10-2022         |
+|         2 | ESOWU36NCOE7  | 28-10-2022         |
+|         3 | ESOWU36NCOE7  | 28-10-2022         |
+|         4 | ESOWU36NCOE7  | 28-10-2022         |
+|         5 | YGIOIYU78COE7 | 28-10-2022         |
+|         6 | HBHJ4R65KNK7  | 28-10-2022         |
+|         7 | HBHJ4R65KNK7  | 28-10-2022         |
+|         8 | HBHJ4R65KNK7  | 28-10-2022         |
++-----------+---------------+--------------------+
+8 rows in set (0.00 sec)
+
+
+
+
+
+  get  http://localhost:8080/coupon-api/coupons/
+
+<List>
+    <item>
+        <couponId>1</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>29-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>2</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>3</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>4</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>5</couponId>
+        <couponCode>YGIOIYU78COE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+</List>
+
+
+
+
+
+http://localhost:8080/coupon-api/coupons?pageNumber=0&pageSize=8
+
+
+
+<List>
+    <item>
+        <couponId>1</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>29-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>2</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>3</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>4</couponId>
+        <couponCode>ESOWU36NCOE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>5</couponId>
+        <couponCode>YGIOIYU78COE7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>6</couponId>
+        <couponCode>HBHJ4R65KNK7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>7</couponId>
+        <couponCode>HBHJ4R65KNK7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+    <item>
+        <couponId>8</couponId>
+        <couponCode>HBHJ4R65KNK7</couponCode>
+        <couponExpireDate>28-10-2022</couponExpireDate>
+    </item>
+</List>
+
+-------------------------------------------
+
+sort by order
+
+mysql> select * from coupon;
++-----------+----------------+--------------------+
+| coupon_id | coupon_code    | coupon_expire_date |
++-----------+----------------+--------------------+
+|         1 | IUU739NVMEIK9  | 1-06-2030          |
+|         2 | LM903JBVMEIK9  | 2-06-2030          |
+|         3 | ABC374BVMEIK9  | 3-06-2030          |
+|         4 | BC374BVMEIK9   | 4-06-2030          |
+|         5 | CDU374BVMEIK9  | 5-06-2030          |
+|         6 | DEUU374BVMEIK9 | 6-06-2030          |
++-----------+----------------+--------------------+
+
+
+postman 
+get   http://localhost:8080/coupon-api/coupons/
+
+<List>
+    <item>
+        <couponId>2</couponId>
+        <couponCode>LM903JBVMEIK9</couponCode>
+        <couponExpireDate>2-06-2030</couponExpireDate>
+    </item>
+    <item>
+        <couponId>1</couponId>
+        <couponCode>IUU739NVMEIK9</couponCode>
+        <couponExpireDate>1-06-2030</couponExpireDate>
+    </item>
+    <item>
+        <couponId>6</couponId>
+        <couponCode>DEUU374BVMEIK9</couponCode>
+        <couponExpireDate>6-06-2030</couponExpireDate>
+    </item>
+</List>
+
+-----------------------------------
+
+
+get  http://localhost:8080/coupon-api/coupons?pageNumber=0&pageSize=3&sortBy=couponCode&dir=DESC
+
+
+<List>
+    <item>
+        <couponId>2</couponId>
+        <couponCode>LM903JBVMEIK9</couponCode>
+        <couponExpireDate>2-06-2030</couponExpireDate>
+    </item>
+    <item>
+        <couponId>1</couponId>
+        <couponCode>IUU739NVMEIK9</couponCode>
+        <couponExpireDate>1-06-2030</couponExpireDate>
+    </item>
+    <item>
+        <couponId>6</couponId>
+        <couponCode>DEUU374BVMEIK9</couponCode>
+        <couponExpireDate>6-06-2030</couponExpireDate>
+    </item>
+</List>
+
+----------------------------------
+
+war file for coupon
+
+
+
+
+get   http://localhost:8080/spring-boot-demo-0.0.1-SNAPSHOT/coupon-api/coupons
+
+
+<List>
+    <item>
+        <couponId>2</couponId>
+        <couponCode>LM903JBVMEIK9</couponCode>
+        <couponExpireDate>2-06-2030</couponExpireDate>
+    </item>
+    <item>
+        <couponId>1</couponId>
+        <couponCode>IUU739NVMEIK9</couponCode>
+        <couponExpireDate>1-06-2030</couponExpireDate>
+    </item>
+    <item>
+        <couponId>6</couponId>
+        <couponCode>DEUU374BVMEIK9</couponCode>
+        <couponExpireDate>6-06-2030</couponExpireDate>
+    </item>
+</List>

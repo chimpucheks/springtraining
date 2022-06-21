@@ -1,0 +1,30 @@
+  get  http://localhost:8080/Spring-Boot-Product-Service-0.0.1-SNAPSHOT/product-api/products
+
+output:
+[
+    {
+        "productId": 4,
+        "productName": "wires",
+        "productPrice": 600
+    },
+    {
+        "productId": 5,
+        "productName": "poles",
+        "productPrice": 700
+    },
+    {
+        "productId": 7,
+        "productName": "poles",
+        "productPrice": 700
+    },
+    {
+        "productId": 3,
+        "productName": "charger",
+        "productPrice": 600
+    },
+    {
+        "productId": 2,
+        "productName": "Bag",
+        "productPrice": 6000
+    }
+]

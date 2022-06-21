@@ -1,0 +1,131 @@
+///////////////////Creating the war for spring boot application/////////////////
+
+The application name::example---->>spring-boot-demo-war.mysql(which is in sts tool)
+
+
+1.go to inside the project->open pom.xml file and add the following
+
+2.add the  <packaging>war</packaging>
+
+3.open the main program(in my project->SpringBootDemoApplication.java)
+
+	and add these to the main program (extends SpringBootServletInitializer)
+		@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return super.configure(builder);
+	}
+
+
+example:
+
+package com.zensar.springbootdemo;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan(basePackages= {"com.zensar"})
+public class SpringBootDemoApplication extends SpringBootServletInitializer {
+
+	public static void main(String... args) 
+	{
+		System.out.println("Ram");
+		SpringApplication.run(SpringBootDemoApplication.class, args);
+		System.out.println("Laxman");
+	}
+	
+	@Bean
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
+	}
+	
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return super.configure(builder);
+	}
+
+}
+
+-----------------------------------
+
+4. go to project--> right click on  project(spring-boot-demo-war.mysql)->go to Run as->click on maven build... 
+	we will get a screen called (Edit configuration and launch) there we will get->Goals->(clean install)
+										     ->Profile (remove pom.xml)
+										     ->	User settings						
+	here we will give only install and we remove the pom.xml
+
+5.apply->and run we will get the war in target folder->spring-boot-demo-0.0.1-SNAPSHOT.war
+
+
+6. now dowload the tomcat ->https://tomcat.apache.org/download-90.cgi#9.0.64
+		zip file will be downloaded and extract it and open the apache-tomcat-9.0.64-> Webapps->copy from  theproject  ->spring-boot-demo-0.0.1-SNAPSHOT.war
+																->spring-boot-demo-0.0.1-SNAPSHOT folder also
+7.in that go to bin and type cmd and enter we will get the cmd prompt --->below 
+
+
+
+Microsoft Windows [Version 10.0.19044.1706]
+(c) Microsoft Corporation. All rights reserved.
+
+
+
+C:\tomcat\tomcat\apache-tomcat-9.0.64\bin>startup.bat
+The JRE_HOME environment variable is not defined correctly
+This environment variable is needed to run this program
+C:\tomcat\tomcat\apache-tomcat-9.0.64\bin>set JAVA_HOME=C:\Program Files\Java\jdk-11.0.15
+
+C:\tomcat\tomcat\apache-tomcat-9.0.64\bin>startup.bat
+Using CATALINA_BASE:   "C:\tomcat\tomcat\apache-tomcat-9.0.64"
+Using CATALINA_HOME:   "C:\tomcat\tomcat\apache-tomcat-9.0.64"
+Using CATALINA_TMPDIR: "C:\tomcat\tomcat\apache-tomcat-9.0.64\temp"
+Using JRE_HOME:        "C:\Program Files\Java\jdk-11.0.15"
+Using CLASSPATH:       "C:\tomcat\tomcat\apache-tomcat-9.0.64\bin\bootstrap.jar;C:\tomcat\tomcat\apache-tomcat-9.0.64\bin\tomcat-juli.jar"
+Using CATALINA_OPTS:   ""
+C:\tomcat\tomcat\apache-tomcat-9.0.64\bin>		 
+
+
+
+once we got like this tomcat prompt will open and now we have open chrome  type->http://localhost:8080/spring-boot-demo-0.0.1-SNAPSHOT/student-api/students
+
+if it gives white pagelabel error then copy the same url in postman->below
+
+
+http://localhost:8080/spring-boot-demo-0.0.1-SNAPSHOT/student-api/students
+
+
+
+
+<List>
+    <item>
+        <studentId>3</studentId>
+        <studentName>rajugaru</studentName>
+        <studentAge>34</studentAge>
+    </item>
+    <item>
+        <studentId>4</studentId>
+        <studentName>raju</studentName>
+        <studentAge>34</studentAge>
+    </item>
+    <item>
+        <studentId>7</studentId>
+        <studentName>raja</studentName>
+        <studentAge>35</studentAge>
+    </item>
+    <item>
+        <studentId>1</studentId>
+        <studentName>bbhi</studentName>
+        <studentAge>34</studentAge>
+    </item>
+    <item>
+        <studentId>2</studentId>
+        <studentName>abhi</studentName>
+        <studentAge>34</studentAge>
+    </item>
+</List>

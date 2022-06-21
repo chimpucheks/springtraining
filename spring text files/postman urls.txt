@@ -1,3 +1,49 @@
-http://localhost:8080/student-api/students/1001
+http://localhost:8080/student-api/students/
+
+
+
+       <studentDto>
+        <studentId>1</studentId>
+        <studentName>bbhi</studentName>
+        <studentAge>34</studentAge>
+    </studentDto>      
 
 http://localhost:8080/coupon-api/coupons/
+
+<couponDto>
+    <couponId>6</couponId>
+    <couponCode>DEUU374BVMEIK9</couponCode>
+    <couponExpireDate>6-06-2030</couponExpireDate>
+</couponDto>
+
+
+http://localhost:8080/product-api/products
+
+<productDto>
+    <productId>7</productId>
+    <productName>poles</productName>
+    <productPrice>700</productPrice>
+</productDto>
+
+
+
+http://localhost:8080/student-api/students?pageNumber=0&pageSize=8
+
+http://localhost:8080/coupon-api/coupons?pageNumber=0&pageSize=8
+
+http://localhost:8080/product-api/products?pageNumber=0&pageSize=8
+
+
+
+
+war file student
+http://localhost:8080/spring-boot-demo-0.0.1-SNAPSHOT/student-api/students
+
+
+
+
+war file for coupon
+http://localhost:8080/spring-boot-demo-0.0.1-SNAPSHOT/coupon-api/coupons
+
+war file for product
+http://localhost:8080/Spring-Boot-Product-Service-0.0.1-SNAPSHOT/product-api/products

@@ -1,0 +1,75 @@
+connecting the application from embbeded(tomcat)  server to another server jetty 
+here tomcat will be removed internally 
+
+project name::spring-boot-demo-jettyserver
+
+1.add in pom.xml file 
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+	<exclusions>
+	<exclusion>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-tomcat</artifactId>
+	</exclusion>
+	</exclusions>
+	</dependency>
+		
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jetty</artifactId>
+	</dependency>
+
+2: run the code 
+
+Ram
+18:14:00.437 [Thread-0] DEBUG org.springframework.boot.devtools.restart.classloader.RestartClassLoader - Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2c3b3379
+Ram
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.0)
+
+2022-06-17 18:14:00.848  INFO 4772 --- [  restartedMain] c.z.s.SpringBootDemoApplication          : Starting SpringBootDemoApplication using Java 11.0.15 on POOLW42SLPC7060 with PID 4772 (C:\Users\vm67964\Documents\workspace-sts-3.9.8.RELEASE\Training\spring-boot-demo-jettyserver\target\classes started by VM67964 in C:\Users\vm67964\Documents\workspace-sts-3.9.8.RELEASE\Training\spring-boot-demo-jettyserver)
+2022-06-17 18:14:00.849  INFO 4772 --- [  restartedMain] c.z.s.SpringBootDemoApplication          : No active profile set, falling back to 1 default profile: "default"
+2022-06-17 18:14:00.887  INFO 4772 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 18:14:00.889  INFO 4772 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 18:14:01.460  INFO 4772 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-17 18:14:01.509  INFO 4772 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 1 JPA repository interfaces.
+2022-06-17 18:14:01.781  INFO 4772 --- [  restartedMain] org.eclipse.jetty.util.log               : Logging initialized @2650ms to org.eclipse.jetty.util.log.Slf4jLog
+2022-06-17 18:14:01.919  INFO 4772 --- [  restartedMain] o.s.b.w.e.j.JettyServletWebServerFactory : Server initialized with port: 8080
+2022-06-17 18:14:01.923  INFO 4772 --- [  restartedMain] org.eclipse.jetty.server.Server          : jetty-9.4.46.v20220331; built: 2022-03-31T16:38:08.030Z; git: bc17a0369a11ecf40bb92c839b9ef0a8ac50ea18; jvm 11.0.15+8-LTS-149
+2022-06-17 18:14:01.953  INFO 4772 --- [  restartedMain] o.e.j.s.h.ContextHandler.application     : Initializing Spring embedded WebApplicationContext
+2022-06-17 18:14:01.953  INFO 4772 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1064 ms
+2022-06-17 18:14:02.025  INFO 4772 --- [  restartedMain] org.eclipse.jetty.server.session         : DefaultSessionIdManager workerName=node0
+2022-06-17 18:14:02.025  INFO 4772 --- [  restartedMain] org.eclipse.jetty.server.session         : No SessionScavenger set, using defaults
+2022-06-17 18:14:02.026  INFO 4772 --- [  restartedMain] org.eclipse.jetty.server.session         : node0 Scavenging every 660000ms
+2022-06-17 18:14:02.040  INFO 4772 --- [  restartedMain] o.e.jetty.server.handler.ContextHandler  : Started o.s.b.w.e.j.JettyEmbeddedWebAppContext@7f644874{application,/,[file:///C:/Users/vm67964/AppData/Local/Temp/jetty-docbase.8080.554952605904107145/],AVAILABLE}
+2022-06-17 18:14:02.040  INFO 4772 --- [  restartedMain] org.eclipse.jetty.server.Server          : Started @2910ms
+2022-06-17 18:14:02.171  INFO 4772 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-17 18:14:02.232  INFO 4772 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-17 18:14:02.407  INFO 4772 --- [  restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-17 18:14:02.488  INFO 4772 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-06-17 18:14:02.764  INFO 4772 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-06-17 18:14:02.782  INFO 4772 --- [  restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-06-17 18:14:03.322  INFO 4772 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-17 18:14:03.328  INFO 4772 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-17 18:14:03.666  WARN 4772 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-17 18:14:03.950  INFO 4772 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-06-17 18:14:03.971  INFO 4772 --- [  restartedMain] o.e.j.s.h.ContextHandler.application     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-17 18:14:03.972  INFO 4772 --- [  restartedMain] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-06-17 18:14:03.972  INFO 4772 --- [  restartedMain] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2022-06-17 18:14:03.993  INFO 4772 --- [  restartedMain] o.e.jetty.server.AbstractConnector       : Started ServerConnector@6639405b{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2022-06-17 18:14:03.994  INFO 4772 --- [  restartedMain] o.s.b.web.embedded.jetty.JettyWebServer  : Jetty started on port(s) 8080 (http/1.1) with context path '/'
+2022-06-17 18:14:04.003  INFO 4772 --- [  restartedMain] c.z.s.SpringBootDemoApplication          : Started SpringBootDemoApplication in 3.553 seconds (JVM running for 4.873)
+MyCommandLineRunner2[--spring.output.ansi.enabled=always]
+MyCommandLineRunner[--spring.output.ansi.enabled=always]
+MyApplicationRunner[--spring.output.ansi.enabled=always]
+seetha
+Laxman
+ 
