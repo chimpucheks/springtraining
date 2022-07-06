@@ -1,0 +1,770 @@
+starters----->	spring web,spring security
+==============================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.zensar</groupId>
+	<artifactId>spring-security</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring-security</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+
+
+==========================================================================
+inmemory authentication and console based authentication
+
+
+package com.zensar;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringSecurityApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringSecurityApplication.class, args);
+	}
+
+}
+----------------------------
+package com.zensar.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+
+	
+	@GetMapping("/")
+	public String sayHello() {
+		return "<h2> Hello !!!! </h2>";
+		
+	}
+}
+-------------------------
+package com.zensar.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+		.withUser("jerry")
+		.password("jerry@123")
+		.roles("USER")
+		.and()
+		.withUser("tom")
+		.password("tom@321")
+		.roles("ADMIN");
+		
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+
+	}
+}
+----------
+
+#spring.security.user.name=tom
+
+#spring.security.user.password=tom@123
+
+
+-----------------------------------------------------------
+
+now connection applicatin to data base 
+
+add starter my sql driver , spring data jpa
+
+
+
+
+
+
+package com.zensar;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringSecurityApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringSecurityApplication.class, args);
+	}
+
+}
+--------------------------------
+
+package com.zensar.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+
+	
+	@GetMapping("/")
+	public String sayHello() {
+		return "<h2> Hello !!!! </h2>";
+		
+	}
+}
+----------------------------------
+
+
+package com.zensar.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	
+	
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		/*
+		 * auth.inMemoryAuthentication() .withUser("jerry") .password("jerry@123")
+		 * .roles("USER") .and() .withUser("tom") .password("tom@321") .roles("ADMIN");
+		 */
+		
+		
+		auth.userDetailsService(userDetailsService);
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+
+	}
+}
+---------------------------------------------------------------
+
+package com.zensar.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.zensar.repository.UserRepository;
+@Service
+public class UserDetailsServiceImpl  implements UserDetailsService{
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return null;
+	}
+
+}
+--------------------------------------------------------
+
+package com.zensar.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zensar.entity.User;
+
+public interface UserRepository extends JpaRepository<User,Integer> {
+
+	List<User>findByUsername(String username);
+	
+	
+}
+----------------------------------------------------------
+package com.zensar.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class User {
+
+	@Id
+	private int userId;
+	private String username;
+	private String password;
+	private String roles;
+
+	public User() {
+		super();
+	}
+
+	public User(int userId, String username, String password, String roles) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", roles=" + roles
+				+ "]";
+	}
+
+}
+--------------------------------------------
+#spring.security.user.name=tom
+
+#spring.security.user.password=tom@123
+
+
+spring.datasource.url=jdbc:mysql://localhost:3306/mydb
+
+spring.datasource.username=root
+
+spring.datasource.password=Zensar@123
+
+spring.jpa.hibernate.ddl-auto=create
+
+
+-----------------------------------
+run the application
+
+
+open my sql command line
+
+
+
+
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 793
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| contactdb          |
+| customer           |
+| information_schema |
+| javabatch          |
+| jdbcdb             |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> use mydb;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_mydb     |
++--------------------+
+| coupon             |
+| hibernate_sequence |
+| product            |
+| user               |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc user;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| user_id  | int          | NO   | PRI | NULL    |       |
+| password | varchar(255) | YES  |     | NULL    |       |
+| roles    | varchar(255) | YES  |     | NULL    |       |
+| username | varchar(255) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> insert into user(user_id,username,password,roles) values(1,"tom","tom@123","ROLE_ADMIN");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into user(user_id,username,password,roles) values(2,"jerry","jerry@123","ROLE_USER");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from user;
++---------+-----------+------------+----------+
+| user_id | password  | roles      | username |
++---------+-----------+------------+----------+
+|       1 | tom@123   | ROLE_ADMIN | tom      |
+|       2 | jerry@123 | ROLE_USER  | jerry    |
++---------+-----------+------------+----------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+
+----------------------------------------
+
+now change the application.properties
+
+
+#spring.security.user.name=tom
+
+#spring.security.user.password=tom@123
+
+
+spring.datasource.url=jdbc:mysql://localhost:3306/mydb
+
+spring.datasource.username=root
+
+spring.datasource.password=Zensar@123
+
+spring.jpa.hibernate.ddl-auto=update
+
+---------------------------------------------------------
+
+
+checking users are available or not 
+
+
+
+
+package com.zensar.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.zensar.entity.User;
+import com.zensar.repository.UserRepository;
+
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		List<User> listOfUsers = userRepository.findByUsername(username);
+
+		if (listOfUsers == null) {
+			throw new UsernameNotFoundException(username);
+		}
+
+		User availableUser = listOfUsers.get(0);
+
+		List<GrantedAuthority> authority = new ArrayList<GrantedAuthority>();
+		authority.add(new SimpleGrantedAuthority(availableUser.getRoles()));
+		return new org.springframework.security.core.userdetails.User(username, availableUser.getPassword(), authority);
+
+	}
+
+}
+-------------------------------------------
+
+run the application goto browswer give the database credentials 
+
+mysql> select * from user;
++---------+-----------+------------+----------+
+| user_id | password  | roles      | username |
++---------+-----------+------------+----------+
+|       1 | tom@123   | ROLE_ADMIN | tom      |
+|       2 | jerry@123 | ROLE_USER  | jerry    |
++---------+-----------+------------+----------+
+2 rows in set (0.00 sec)
+
+
+localhost:8080/login
+
+Please sign in
+Username
+admin:tom
+Password: tom@123
+
+
+output:
+
+Hello !!!!
+
+
+----------------------------------------------------------------
+
+
+
+autherization
+
+
+
+package com.zensar;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringSecurityApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringSecurityApplication.class, args);
+	}
+
+}
+---------------------------
+package com.zensar.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+
+	//http://localhost:8080/all
+	@GetMapping("/all")
+	public String sayHello() {
+		return "<h2> Hello !!!! </h2>";
+		
+	}
+	
+	//http://localhost:8080/admin
+	@GetMapping("/admin")
+	public String helloAdmin() {
+		return "<h2> Hello Admin !!!! </h2>";
+		
+	}
+	
+	//http://localhost:8080/user
+	@GetMapping("/user")
+	public String helloUser() {
+		return "<h2> Hello User !!!! </h2>";
+		
+	}
+}
+----------------------------
+package com.zensar.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	// Authentication
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		/*
+		 * auth.inMemoryAuthentication() .withUser("jerry") .password("jerry@123")
+		 * .roles("USER") .and() .withUser("tom") .password("tom@321") .roles("ADMIN");
+		 */
+
+		auth.userDetailsService(userDetailsService);
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+		.authorizeRequests()
+		.antMatchers("/admin").hasRole("ADMIN")
+		.antMatchers("/user").hasRole("USER")
+		.antMatchers("/all")
+		.permitAll()
+		.and()
+		.formLogin();
+	}
+
+}
+--------------------------------------------------------
+package com.zensar.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.zensar.entity.User;
+import com.zensar.repository.UserRepository;
+
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		List<User> listOfUsers = userRepository.findByUsername(username);
+
+		if (listOfUsers == null) {
+			throw new UsernameNotFoundException(username);
+		}
+
+		User availableUser = listOfUsers.get(0);
+
+		List<GrantedAuthority> authority = new ArrayList<GrantedAuthority>();
+		authority.add(new SimpleGrantedAuthority(availableUser.getRoles()));
+		return new org.springframework.security.core.userdetails.User(username, availableUser.getPassword(), authority);
+
+	}
+
+}
+----------------------------------------
+package com.zensar.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zensar.entity.User;
+
+public interface UserRepository extends JpaRepository<User,Integer> {
+
+	List<User>findByUsername(String username);
+	
+	
+}
+-------------------------------------
+
+package com.zensar.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class User {
+
+	@Id
+	private int userId;
+	private String username;
+	private String password;
+	private String roles;
+
+	public User() {
+		super();
+	}
+
+	public User(int userId, String username, String password, String roles) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", roles=" + roles
+				+ "]";
+	}
+
+}
+-------------------------------------------
+
+here we have done changes to 
+
+homecontroller
+mysecuritycnfig
+
+run the application
+
+localhost:8080/all
+Hello
+
+localhost:8080/user
+user:jerry
+password:jerry@123
+Hello User !!!
+
+localhost:8080/admin
+
+user:tom
+password:tom@123
+Hello Admin !!!
+
+
+
+
+
+
