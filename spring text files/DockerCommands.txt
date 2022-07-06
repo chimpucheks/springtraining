@@ -1,0 +1,38 @@
+docker --version--> to konow the version
+
+docker images-->show the images
+
+docker pull image-name/image-id-->pull the image from docker hub
+
+docker pull hello-world--->to pull the image
+
+docker run hello-world --> it will create container and it will stop
+				(not  only run the container (after removing the image and the container locally  once we run this 
+					(docker run hello-world(or)jenkins/jenkins(names of the id's in the docker hub.com) 
+						command it will agai search locally and again it will pull from the docker hub)).
+
+docker container ls--> list all the containers running
+
+docker container ls -a--->list all the stoped and running containers
+
+docker --help---it will give help
+
+docker container rm container-id/container-name-->to remove stopped container
+
+docker container rm -f container-id/container-name-->it will remove running container  forcefully 
+
+docker rmi image-id/image-name---> remove the image 
+
+docker rmi -f image-id/image-name---> remove the image forcefully
+
+docker container start container-id/container-name--> start the stopped containers
+
+docker container stop container-id/container-name-->to stop the running container
+
+docker run -p 8080(host port(we can change port no)):8080(container post) jenkins/jenkins-->port binding (container port to host port)
+
+docker run -d -p 3000:8080 jenkins/jenkins-->starting jenkins in background mode or deteachmod
+
+docker container exec -it testsql bash -->we can talk to database through cmd  next ->mysql -u root -p
+										  Enter password:root
+	

@@ -1,0 +1,1274 @@
+Microsoft Windows [Version 10.0.19044.1766]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\vm67964>docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+
+C:\Users\vm67964>docker --version
+Docker version 20.10.12, build e91ed57
+
+C:\Users\vm67964>docker
+
+Usage:  docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default
+                           "C:\\Users\\vm67964\\.docker")
+  -c, --context string     Name of the context to use to connect to the
+                           daemon (overrides DOCKER_HOST env var and
+                           default context set with "docker context use")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level
+                           ("debug"|"info"|"warn"|"error"|"fatal")
+                           (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default
+                           "C:\\Users\\vm67964\\.docker\\ca.pem")
+      --tlscert string     Path to TLS certificate file (default
+                           "C:\\Users\\vm67964\\.docker\\cert.pem")
+      --tlskey string      Path to TLS key file (default
+                           "C:\\Users\\vm67964\\.docker\\key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  builder     Manage builds
+  buildx*     Docker Buildx (Docker Inc., v0.7.1)
+  compose*    Docker Compose (Docker Inc., v2.2.3)
+  config      Manage Docker configs
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  scan*       Docker Scan (Docker Inc., v0.17.0)
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker COMMAND --help' for more information on a command.
+
+To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
+
+C:\Users\vm67964>docker container COMMAND --help
+
+Usage:  docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\vm67964>docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+
+
+
+//to pull image from docker hub
+
+C:\Users\vm67964>docker pull hello-world
+Using default tag: latest
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete
+Digest: sha256:13e367d31ae85359f42d637adf6da428f76d75dc9afeb3c21faea0d976f5c651
+Status: Downloaded newer image for hello-world:latest
+docker.io/library/hello-world:latest
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+
+//created container and stopped
+
+C:\Users\vm67964>docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+
+//list all the running containers
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+
+
+//stopped containers
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+b39383cfe95e   hello-world   "/hello"   3 minutes ago   Exited (0) 3 minutes ago             serene_pasteur
+
+
+
+C:\Users\vm67964>docker container --help
+
+Usage:  docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+
+
+
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS     NAMES
+b39383cfe95e   hello-world   "/hello"   17 minutes ago   Exited (0) 17 minutes ago             serene_pasteur
+
+
+
+//removed the stopped container
+C:\Users\vm67964>docker container rm b39383cfe95e
+b39383cfe95e
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+
+//removed the image
+C:\Users\vm67964>docker rmi hello-world
+Untagged: hello-world:latest
+Untagged: hello-world@sha256:13e367d31ae85359f42d637adf6da428f76d75dc9afeb3c21faea0d976f5c651
+Deleted: sha256:feb5d9fea6a5e9606aa995e879d862b825965ba48de054caab5ef356dc6b3412
+Deleted: sha256:e07ee1baac5fae6a26f30cabfe54a36d3402f96afda318fe0a96cec4ca393359
+
+C:\Users\vm67964>docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+
+
+///
+
+
+C:\Users\vm67964>docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete
+Digest: sha256:13e367d31ae85359f42d637adf6da428f76d75dc9afeb3c21faea0d976f5c651
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS     NAMES
+a3e081f72b74   hello-world   "/hello"   30 seconds ago   Exited (0) 29 seconds ago             unruffled_kirch
+
+
+////to start stopped containers by id
+
+C:\Users\vm67964>docker container start a3e081f72b74
+a3e081f72b74
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                      PORTS     NAMES
+a3e081f72b74   hello-world   "/hello"   2 minutes ago   Exited (0) 32 seconds ago             unruffled_kirch
+
+
+////to start stopped containers by name
+C:\Users\vm67964>docker container start  unruffled_kirch
+unruffled_kirch
+
+
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+a3e081f72b74   hello-world   "/hello"   9 minutes ago   Exited (0) 6 minutes ago             unruffled_kirch
+
+
+
+//pulled the jenkins from docker hub//
+
+C:\Users\vm67964>docker pull jenkins/jenkins
+Using default tag: latest
+Error response from daemon: Get "https://registry-1.docker.io/v2/": EOF
+
+C:\Users\vm67964>docker pull jenkins/jenkins
+Using default tag: latest
+Error response from daemon: Get "https://registry-1.docker.io/v2/": EOF
+
+C:\Users\vm67964>
+C:\Users\vm67964>docker pull jenkins/jenkins
+Using default tag: latest
+Error response from daemon: Head "https://registry-1.docker.io/v2/jenkins/jenkins/manifests/latest": net/http: TLS handshake timeout
+
+C:\Users\vm67964>docker pull jenkins/jenkins
+Using default tag: latest
+Error response from daemon: Get "https://registry-1.docker.io/v2/": net/http: TLS handshake timeout
+
+C:\Users\vm67964>docker pull jenkins/jenkins
+Using default tag: latest
+latest: Pulling from jenkins/jenkins
+1339eaac5b67: Downloading  22.58MB/55.01MB
+cfd214e5bdbf: Downloading   1.53MB/50.67MB
+c59370f20255: Download complete
+f0e86bde3790: Waiting
+5ea7a2240498: Waiting
+13d9c8179037: Waiting
+6c5468929692: Waiting
+7c5a32e7a8cf: Waiting
+01b7e38526c2: Waiting
+1deb82ebf972: Waiting
+aa26cb49c233: Waiting
+ca34067e0051: Waiting
+13f50c21a271: Waiting
+34b5a76aedfd: Waiting
+error pulling image configuration: Get "https://registry-1.docker.io/v2/jenkins/jenkins/blobs/sha256:4d0f2c58247de06f43de3b4a0acc341fb1b085263a0ce752eb681b8f74d1a951": net/http: TLS handshake timeout
+
+C:\Users\vm67964>docker pull jenkins/jenkins
+Using default tag: latest
+latest: Pulling from jenkins/jenkins
+1339eaac5b67: Pull complete
+cfd214e5bdbf: Pull complete
+c59370f20255: Pull complete
+f0e86bde3790: Pull complete
+5ea7a2240498: Pull complete
+13d9c8179037: Pull complete
+6c5468929692: Pull complete
+7c5a32e7a8cf: Pull complete
+01b7e38526c2: Pull complete
+1deb82ebf972: Pull complete
+aa26cb49c233: Pull complete
+ca34067e0051: Pull complete
+13f50c21a271: Pull complete
+34b5a76aedfd: Pull complete
+Digest: sha256:ccaeaf2f40820e41f2647ac44e66b60ddb18d5a5d4be872e80b7fdaaa86bf28b
+Status: Downloaded newer image for jenkins/jenkins:latest
+docker.io/jenkins/jenkins:latest
+
+C:\Users\vm67964>docker images
+REPOSITORY        TAG       IMAGE ID       CREATED        SIZE
+jenkins/jenkins   latest    4d0f2c58247d   7 days ago     462MB
+hello-world       latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS     NAMES
+a3e081f72b74   hello-world   "/hello"   43 minutes ago   Exited (0) 39 minutes ago             unruffled_kirch
+
+
+//we have runned the jenkins 
+C:\Users\vm67964>docker run jenkins/jenkins
+Running from: /usr/share/jenkins/jenkins.war
+webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 06:29:29.194+0000 [id=1]     INFO    org.eclipse.jetty.util.log.Log#initialized: Logging initialized @377ms to org.eclipse.jetty.util.log.JavaUtilLog
+2022-07-06 06:29:29.252+0000 [id=1]     INFO    winstone.Logger#logInternal: Beginning extraction from war file
+2022-07-06 06:29:29.834+0000 [id=1]     WARNING o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2022-07-06 06:29:29.882+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: jetty-9.4.46.v20220331; built: 2022-03-31T16:38:08.030Z; git: bc17a0369a11ecf40bb92c839b9ef0a8ac50ea18; jvm 11.0.15+10
+2022-07-06 06:29:30.065+0000 [id=1]     INFO    o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2022-07-06 06:29:30.098+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: DefaultSessionIdManager workerName=node0
+2022-07-06 06:29:30.098+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: No SessionScavenger set, using defaults
+2022-07-06 06:29:30.100+0000 [id=1]     INFO    o.e.j.server.session.HouseKeeper#startScavenging: node0 Scavenging every 600000ms
+2022-07-06 06:29:30.472+0000 [id=1]     INFO    hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 06:29:30.643+0000 [id=1]     INFO    o.e.j.s.handler.ContextHandler#doStart: Started w.@3effd4f3{Jenkins v2.357,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+2022-07-06 06:29:30.675+0000 [id=1]     INFO    o.e.j.server.AbstractConnector#doStart: Started ServerConnector@241e8ea6{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2022-07-06 06:29:30.675+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: Started @1860ms
+2022-07-06 06:29:30.676+0000 [id=24]    INFO    winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2022-07-06 06:29:30.921+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Started initialization
+2022-07-06 06:29:30.947+0000 [id=29]    INFO    jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2022-07-06 06:29:31.580+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2022-07-06 06:29:31.588+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2022-07-06 06:29:31.595+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2022-07-06 06:29:31.855+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: System config loaded
+2022-07-06 06:29:31.856+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: System config adapted
+2022-07-06 06:29:31.857+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2022-07-06 06:29:31.859+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2022-07-06 06:29:31.893+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Started Download metadata
+2022-07-06 06:29:31.916+0000 [id=49]    INFO    hudson.util.Retrier#start: Attempt #1 to do the action check updates server
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/var/jenkins_home/war/WEB-INF/lib/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2022-07-06 06:29:32.396+0000 [id=35]    INFO    jenkins.install.SetupWizard#init:
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+f8f23976d69e4ddebf295e5c31a01eee
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+2022-07-06 06:29:58.247+0000 [id=35]    INFO    jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2022-07-06 06:29:58.267+0000 [id=23]    INFO    hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2022-07-06 06:29:59.343+0000 [id=49]    INFO    h.m.DownloadService$Downloadable#load: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+2022-07-06 06:29:59.344+0000 [id=49]    INFO    hudson.util.Retrier#start: Performed the action check updates server successfully at the attempt #1
+2022-07-06 06:29:59.347+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Finished Download metadata. 27,444 ms
+
+
+//now we have removed the jenkins image and container
+
+
+Microsoft Windows [Version 10.0.19044.1766]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          PORTS                 NAMES
+f0f345eb61b4   jenkins/jenkins   "/usr/bin/tini -- /u…"   33 seconds ago   Up 32 seconds   8080/tcp, 50000/tcp   pensive_shirley
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE             COMMAND                  CREATED              STATUS                      PORTS                 NAMES
+f0f345eb61b4   jenkins/jenkins   "/usr/bin/tini -- /u…"   About a minute ago   Up About a minute           8080/tcp, 50000/tcp   pensive_shirley
+a3e081f72b74   hello-world       "/hello"                 44 minutes ago       Exited (0) 41 minutes ago                         unruffled_kirch
+
+C:\Users\vm67964>docker images
+REPOSITORY        TAG       IMAGE ID       CREATED        SIZE
+jenkins/jenkins   latest    4d0f2c58247d   7 days ago     462MB
+hello-world       latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker rmi jenkins/jenkins
+Error response from daemon: conflict: unable to remove repository reference "jenkins/jenkins" (must force) - container f0f345eb61b4 is using its referenced image 4d0f2c58247d
+
+C:\Users\vm67964>docker rmi -f jenkins/jenkins
+Untagged: jenkins/jenkins:latest
+Untagged: jenkins/jenkins@sha256:ccaeaf2f40820e41f2647ac44e66b60ddb18d5a5d4be872e80b7fdaaa86bf28b
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                      PORTS                 NAMES
+f0f345eb61b4   4d0f2c58247d   "/usr/bin/tini -- /u…"   3 minutes ago    Up 3 minutes                8080/tcp, 50000/tcp   pensive_shirley
+a3e081f72b74   hello-world    "/hello"                 46 minutes ago   Exited (0) 43 minutes ago                         unruffled_kirch
+
+C:\Users\vm67964>docker container rm f0f345eb61b4
+Error response from daemon: You cannot remove a running container f0f345eb61b49faac7422d41e9ada44b266c428f217782106526329027f23267. Stop the container before attempting removal or force remove
+
+C:\Users\vm67964>docker container rm -f f0f345eb61b4
+f0f345eb61b4
+
+C:\Users\vm67964>docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS     NAMES
+a3e081f72b74   hello-world   "/hello"   47 minutes ago   Exited (0) 44 minutes ago             unruffled_kirch
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+<none>        <none>    4d0f2c58247d   7 days ago     462MB
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker rmi -f 4d0f2c58247d
+Deleted: sha256:4d0f2c58247de06f43de3b4a0acc341fb1b085263a0ce752eb681b8f74d1a951
+Deleted: sha256:baaf12f0d79e0f020e5875d1634e94d5ed9879204dbf34f17024973c3c1e3d14
+Deleted: sha256:dee8b35c5a5524a7554454556401440bb27ba93a1dd86e5661eb3050bc548359
+Deleted: sha256:562e390c8e30d780b77d8a99851576ae63f8e5340f12588dd31204c3865c2f90
+Deleted: sha256:666c8ad6c6e26135bf243558006910603263bb0b2717dc33ef7cbd97c51458d4
+Deleted: sha256:bc505029375d930af27f7f1842550741fb4c272988e886481635594913881c4e
+Deleted: sha256:3f348d885edbc90ce838601880b9a62ac5a8783860f6db29fb9117a5da01bfd9
+Deleted: sha256:f84b3451d831b1f11112183e1f92bff14d20c72e4dfa1adc3c71b81df8830347
+Deleted: sha256:ccd882cd64702fc375a1924e1a755b257a3dd7d21125c97ae8d2f8d928bc7724
+Deleted: sha256:f21a112189e10391de487d60052e411d2f1d82ba0e686ddaa63ef95813708bd6
+Deleted: sha256:0fc41217aba2d771ff8b0f05bd0e9fe6ec24dc3f88ad28297b231e4146475166
+Deleted: sha256:0bda51c5fae5eada39b86bdc0e2d495e5f460b234804558f73b3c0219bfc816f
+Deleted: sha256:c09667655b2476c6eab34c93398ddbc387c70934332201df38baffbdd88395cd
+Deleted: sha256:b6d6ec23919a101e79c89d838996294f15639c34e33adbc98b33374945e45f6a
+Deleted: sha256:97d5fec864d84417c057008f153140193d2cc924b545b0c6fec10ae891fb26f9
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+//now again we have started jenkins
+
+C:\Users\vm67964>docker run jenkins/jenkins
+Unable to find image 'jenkins/jenkins:latest' locally
+latest: Pulling from jenkins/jenkins
+1339eaac5b67: Pull complete
+cfd214e5bdbf: Pull complete
+c59370f20255: Pull complete
+f0e86bde3790: Pull complete
+5ea7a2240498: Pull complete
+13d9c8179037: Pull complete
+6c5468929692: Pull complete
+7c5a32e7a8cf: Pull complete
+01b7e38526c2: Pull complete
+1deb82ebf972: Pull complete
+aa26cb49c233: Pull complete
+ca34067e0051: Pull complete
+13f50c21a271: Pull complete
+34b5a76aedfd: Pull complete
+Digest: sha256:ccaeaf2f40820e41f2647ac44e66b60ddb18d5a5d4be872e80b7fdaaa86bf28b
+Status: Downloaded newer image for jenkins/jenkins:latest
+Running from: /usr/share/jenkins/jenkins.war
+webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 06:56:58.460+0000 [id=1]     INFO    org.eclipse.jetty.util.log.Log#initialized: Logging initialized @371ms to org.eclipse.jetty.util.log.JavaUtilLog
+2022-07-06 06:56:58.523+0000 [id=1]     INFO    winstone.Logger#logInternal: Beginning extraction from war file
+2022-07-06 06:56:59.142+0000 [id=1]     WARNING o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2022-07-06 06:56:59.189+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: jetty-9.4.46.v20220331; built: 2022-03-31T16:38:08.030Z; git: bc17a0369a11ecf40bb92c839b9ef0a8ac50ea18; jvm 11.0.15+10
+2022-07-06 06:56:59.371+0000 [id=1]     INFO    o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2022-07-06 06:56:59.403+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: DefaultSessionIdManager workerName=node0
+2022-07-06 06:56:59.404+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: No SessionScavenger set, using defaults
+2022-07-06 06:56:59.406+0000 [id=1]     INFO    o.e.j.server.session.HouseKeeper#startScavenging: node0 Scavenging every 600000ms
+2022-07-06 06:56:59.796+0000 [id=1]     INFO    hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 06:56:59.974+0000 [id=1]     INFO    o.e.j.s.handler.ContextHandler#doStart: Started w.@3effd4f3{Jenkins v2.357,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+2022-07-06 06:57:00.002+0000 [id=1]     INFO    o.e.j.server.AbstractConnector#doStart: Started ServerConnector@241e8ea6{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2022-07-06 06:57:00.003+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: Started @1915ms
+2022-07-06 06:57:00.008+0000 [id=24]    INFO    winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2022-07-06 06:57:00.283+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Started initialization
+2022-07-06 06:57:00.312+0000 [id=36]    INFO    jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2022-07-06 06:57:00.998+0000 [id=35]    INFO    jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2022-07-06 06:57:01.007+0000 [id=29]    INFO    jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2022-07-06 06:57:01.013+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2022-07-06 06:57:01.214+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: System config loaded
+2022-07-06 06:57:01.215+0000 [id=30]    INFO    jenkins.InitReactorRunner$1#onAttained: System config adapted
+2022-07-06 06:57:01.215+0000 [id=30]    INFO    jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2022-07-06 06:57:01.217+0000 [id=35]    INFO    jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2022-07-06 06:57:01.269+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Started Download metadata
+2022-07-06 06:57:01.285+0000 [id=49]    INFO    hudson.util.Retrier#start: Attempt #1 to do the action check updates server
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/var/jenkins_home/war/WEB-INF/lib/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2022-07-06 06:57:01.765+0000 [id=31]    INFO    jenkins.install.SetupWizard#init:
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+a1adeeaa2e0040c8bf52ec7bbfc77010
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+2022-07-06 06:57:17.459+0000 [id=31]    WARNING hudson.model.UpdateCenter#updateDefaultSite: Upgrading Jenkins. Failed to update the default Update Site 'default'. Plugin upgrades may fail.
+java.io.EOFException: SSL peer shut down incorrectly
+        at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:483)
+        at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)
+        at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:160)
+        at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+        at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1506)
+Caused: javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
+        at java.base/sun.security.ssl.SSLSocketImpl.handleEOF(SSLSocketImpl.java:1696)
+        at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1514)
+        at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1416)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:456)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:427)
+        at java.base/sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:572)
+        at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:197)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1592)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1520)
+        at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:250)
+        at hudson.model.DownloadService.loadJSON(DownloadService.java:122)
+        at hudson.model.UpdateSite.updateDirectlyNow(UpdateSite.java:218)
+        at hudson.model.UpdateSite.updateDirectlyNow(UpdateSite.java:213)
+        at hudson.model.UpdateCenter.updateDefaultSite(UpdateCenter.java:2666)
+        at jenkins.install.SetupWizard.init(SetupWizard.java:206)
+        at jenkins.install.InstallState$InitialSecuritySetup.initializeState(InstallState.java:182)
+        at jenkins.model.Jenkins.setInstallState(Jenkins.java:1132)
+        at jenkins.install.InstallUtil.proceedToNextStateFrom(InstallUtil.java:98)
+        at jenkins.install.InstallState$Unknown.initializeState(InstallState.java:88)
+        at jenkins.model.Jenkins$15.run(Jenkins.java:3498)
+        at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:175)
+        at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:305)
+        at jenkins.model.Jenkins$5.runTask(Jenkins.java:1159)
+        at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:222)
+        at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:121)
+        at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:70)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+2022-07-06 06:57:17.463+0000 [id=34]    INFO    jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2022-07-06 06:57:17.498+0000 [id=23]    INFO    hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2022-07-06 06:57:22.801+0000 [id=49]    INFO    h.m.DownloadService$Downloadable#load: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+2022-07-06 06:57:22.802+0000 [id=49]    INFO    hudson.util.Retrier#start: Performed the action check updates server successfully at the attempt #1
+2022-07-06 06:57:22.805+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Finished Download metadata. 21,533 ms
+
+
+/////////////////
+now we started the jenkins/jenkins  in the foreground along with port number (tha above is also correct but we have not specified the port number)
+
+
+C:\Users\vm67964>docker run -p 8080:8080 jenkins/jenkins
+Running from: /usr/share/jenkins/jenkins.war
+webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 06:58:37.570+0000 [id=1]     INFO    org.eclipse.jetty.util.log.Log#initialized: Logging initialized @515ms to org.eclipse.jetty.util.log.JavaUtilLog
+2022-07-06 06:58:37.654+0000 [id=1]     INFO    winstone.Logger#logInternal: Beginning extraction from war file
+2022-07-06 06:58:38.300+0000 [id=1]     WARNING o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2022-07-06 06:58:38.377+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: jetty-9.4.46.v20220331; built: 2022-03-31T16:38:08.030Z; git: bc17a0369a11ecf40bb92c839b9ef0a8ac50ea18; jvm 11.0.15+10
+2022-07-06 06:58:38.585+0000 [id=1]     INFO    o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2022-07-06 06:58:38.617+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: DefaultSessionIdManager workerName=node0
+2022-07-06 06:58:38.618+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: No SessionScavenger set, using defaults
+2022-07-06 06:58:38.621+0000 [id=1]     INFO    o.e.j.server.session.HouseKeeper#startScavenging: node0 Scavenging every 660000ms
+2022-07-06 06:58:38.960+0000 [id=1]     INFO    hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 06:58:39.137+0000 [id=1]     INFO    o.e.j.s.handler.ContextHandler#doStart: Started w.@3effd4f3{Jenkins v2.357,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+2022-07-06 06:58:39.163+0000 [id=1]     INFO    o.e.j.server.AbstractConnector#doStart: Started ServerConnector@241e8ea6{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2022-07-06 06:58:39.163+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: Started @2110ms
+2022-07-06 06:58:39.165+0000 [id=24]    INFO    winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2022-07-06 06:58:39.373+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Started initialization
+2022-07-06 06:58:39.401+0000 [id=36]    INFO    jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2022-07-06 06:58:40.163+0000 [id=29]    INFO    jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2022-07-06 06:58:40.170+0000 [id=36]    INFO    jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2022-07-06 06:58:40.177+0000 [id=29]    INFO    jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2022-07-06 06:58:40.382+0000 [id=36]    INFO    jenkins.InitReactorRunner$1#onAttained: System config loaded
+2022-07-06 06:58:40.382+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: System config adapted
+2022-07-06 06:58:40.382+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2022-07-06 06:58:40.386+0000 [id=34]    INFO    jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2022-07-06 06:58:40.412+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Started Download metadata2022-07-06 06:58:40.428+0000 [id=49]    INFO    hudson.util.Retrier#start: Attempt #1 to do the action check updates server
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/var/jenkins_home/war/WEB-INF/lib/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2022-07-06 06:58:40.875+0000 [id=34]    INFO    jenkins.install.SetupWizard#init:
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+3aacbd0de64b4ce79912bc50dcd4f709
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+2022-07-06 06:58:44.028+0000 [id=34]    WARNING hudson.model.UpdateCenter#updateDefaultSite: Upgrading Jenkins. Failed to update the default Update Site 'default'. Plugin upgrades may fail.
+java.io.EOFException: SSL peer shut down incorrectly
+        at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:483)
+        at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)
+        at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:160)
+        at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+        at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1506)
+Caused: javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
+        at java.base/sun.security.ssl.SSLSocketImpl.handleEOF(SSLSocketImpl.java:1696)
+        at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1514)
+        at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1416)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:456)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:427)
+        at java.base/sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:572)
+        at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:197)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1592)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1520)
+        at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:250)
+        at hudson.model.DownloadService.loadJSON(DownloadService.java:122)
+        at hudson.model.UpdateSite.updateDirectlyNow(UpdateSite.java:218)
+        at hudson.model.UpdateSite.updateDirectlyNow(UpdateSite.java:213)
+        at hudson.model.UpdateCenter.updateDefaultSite(UpdateCenter.java:2666)
+        at jenkins.install.SetupWizard.init(SetupWizard.java:206)
+        at jenkins.install.InstallState$InitialSecuritySetup.initializeState(InstallState.java:182)
+        at jenkins.model.Jenkins.setInstallState(Jenkins.java:1132)
+        at jenkins.install.InstallUtil.proceedToNextStateFrom(InstallUtil.java:98)
+        at jenkins.install.InstallState$Unknown.initializeState(InstallState.java:88)
+        at jenkins.model.Jenkins$15.run(Jenkins.java:3498)
+        at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:175)
+        at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:305)
+        at jenkins.model.Jenkins$5.runTask(Jenkins.java:1159)
+        at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:222)
+        at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:121)
+        at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:70)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+2022-07-06 06:58:44.029+0000 [id=34]    INFO    jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2022-07-06 06:58:44.049+0000 [id=23]    INFO    hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2022-07-06 06:58:57.642+0000 [id=49]    INFO    h.m.DownloadService$Downloadable#load: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+2022-07-06 06:58:57.643+0000 [id=49]    INFO    hudson.util.Retrier#start: Performed the action check updates server successfully at the attempt #1
+2022-07-06 06:58:57.648+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Finished Download metadata. 17,235 ms
+2022-07-06 06:59:41.378+0000 [id=17]    INFO    hudson.PluginManager#install: Starting installation of a batch of 0 plugins plus their dependencies
+2022-07-06 06:59:41.384+0000 [id=84]    INFO    h.m.UpdateCenter$CompleteBatchJob#run: Completing installing of plugin batch…
+2022-07-06 06:59:41.419+0000 [id=86]    INFO    jenkins.InitReactorRunner$1#onAttained: Started initialization
+2022-07-06 06:59:41.424+0000 [id=90]    INFO    jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2022-07-06 06:59:41.425+0000 [id=92]    INFO    jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2022-07-06 06:59:41.426+0000 [id=91]    INFO    jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2022-07-06 06:59:41.427+0000 [id=91]    INFO    jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2022-07-06 06:59:41.428+0000 [id=91]    INFO    jenkins.InitReactorRunner$1#onAttained: System config loaded
+2022-07-06 06:59:41.428+0000 [id=91]    INFO    jenkins.InitReactorRunner$1#onAttained: System config adapted
+2022-07-06 06:59:41.428+0000 [id=91]    INFO    jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2022-07-06 06:59:41.428+0000 [id=91]    INFO    jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2022-07-06 06:59:41.429+0000 [id=91]    INFO    jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2022-07-06 06:59:41.433+0000 [id=84]    INFO    h.m.UpdateCenter$CompleteBatchJob#run: Completed installation of 0 plugins in 49 ms
+
+
+--------------------------------
+got to chrome and type localhost:8080
+
+jenkins will be load and it ask for password
+
+password will be available above: 3aacbd0de64b4ce79912bc50dcd4f709
+
+continue
+
+once it starts we will get 2 options we select 2nd and continue
+
+none options clicked means all the plugins will be unchecked 
+
+no plugnins will be installed
+
+asks password and username -->admin admin
+
+continue
+start using jenkins
+
+create new item->Test->freestyle project->ok
+
+
+-------------------------------------------------------------------
+
+//to start the jenkins in the background in the same command promt
+
+C:\Users\vm67964>docker container run -d -p 8080:8080 jenkins/jenkins
+Unable to find image 'jenkins/jenkins:latest' locally
+latest: Pulling from jenkins/jenkins
+1339eaac5b67: Already exists
+cfd214e5bdbf: Already exists
+c59370f20255: Already exists
+f0e86bde3790: Already exists
+5ea7a2240498: Already exists
+13d9c8179037: Already exists
+6c5468929692: Already exists
+7c5a32e7a8cf: Already exists
+01b7e38526c2: Already exists
+1deb82ebf972: Already exists
+aa26cb49c233: Already exists
+ca34067e0051: Already exists
+13f50c21a271: Already exists
+34b5a76aedfd: Already exists
+Digest: sha256:ccaeaf2f40820e41f2647ac44e66b60ddb18d5a5d4be872e80b7fdaaa86bf28b
+Status: Downloaded newer image for jenkins/jenkins:latest
+7b6a575ca8653852e2abe9cf99ad1d9671f966383094f9a24520ce41782a52a2
+
+C:\Users\vm67964>docker images
+REPOSITORY        TAG       IMAGE ID       CREATED        SIZE
+jenkins/jenkins   latest    4d0f2c58247d   7 days ago     462MB
+hello-world       latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker rmi -f jenkins/jenkins
+Untagged: jenkins/jenkins:latest
+Untagged: jenkins/jenkins@sha256:ccaeaf2f40820e41f2647ac44e66b60ddb18d5a5d4be872e80b7fdaaa86bf28b
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+<none>        <none>    4d0f2c58247d   7 days ago     462MB
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                               NAMES
+7b6a575ca865   4d0f2c58247d   "/usr/bin/tini -- /u…"   58 seconds ago   Up 57 seconds   0.0.0.0:8080->8080/tcp, 50000/tcp   heuristic_ellis
+
+C:\Users\vm67964>docker container rm  -f 7b6a575ca865
+7b6a575ca865
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+<none>        <none>    4d0f2c58247d   7 days ago     462MB
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker rmi -f 4d0f2c58247d
+Deleted: sha256:4d0f2c58247de06f43de3b4a0acc341fb1b085263a0ce752eb681b8f74d1a951
+
+C:\Users\vm67964>docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\vm67964>docker container ls  -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                        PORTS     NAMES
+048673aa4cc8   4d0f2c58247d   "/usr/bin/tini -- /u…"   11 minutes ago   Exited (143) 7 minutes ago              beautiful_sinoussi
+40feeb6111e3   4d0f2c58247d   "/usr/bin/tini -- /u…"   48 minutes ago   Exited (143) 15 minutes ago             cranky_bose
+878c0a48658d   4d0f2c58247d   "/usr/bin/tini -- /u…"   50 minutes ago   Exited (143) 7 minutes ago              determined_bhabha
+a3e081f72b74   hello-world    "/hello"                 2 hours ago      Exited (0) 2 hours ago                  unruffled_kirch
+
+C:\Users\vm67964>docker container run -d -p 8080:8080 jenkins/jenkins
+3cebbc1ee28e6daddadd8ba5dcc0daa4b95b7d856ea98a01f95d1ea5c93ef4d8
+
+C:\Users\vm67964>docker images
+REPOSITORY        TAG       IMAGE ID       CREATED        SIZE
+jenkins/jenkins   latest    4d0f2c58247d   7 days ago     462MB
+hello-world       latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker container ls
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          PORTS                               NAMES
+3cebbc1ee28e   jenkins/jenkins   "/usr/bin/tini -- /u…"   22 seconds ago   Up 21 seconds   0.0.0.0:8080->8080/tcp, 50000/tcp   suspicious_perlman
+
+C:\Users\vm67964>docker container logs
+"docker container logs" requires exactly 1 argument.
+See 'docker container logs --help'.
+
+Usage:  docker container logs [OPTIONS] CONTAINER
+
+Fetch the logs of a container
+
+C:\Users\vm67964>docker logs
+"docker logs" requires exactly 1 argument.
+See 'docker logs --help'.
+
+Usage:  docker logs [OPTIONS] CONTAINER
+
+Fetch the logs of a container
+
+C:\Users\vm67964>docker logs container
+Error: No such container: container
+
+C:\Users\vm67964>docker logs 3cebbc1ee28e
+Running from: /usr/share/jenkins/jenkins.war
+webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 08:17:32.437+0000 [id=1]     INFO    org.eclipse.jetty.util.log.Log#initialized: Logging initialized @360ms to org.eclipse.jetty.util.log.JavaUtilLog
+2022-07-06 08:17:32.495+0000 [id=1]     INFO    winstone.Logger#logInternal: Beginning extraction from war file
+2022-07-06 08:17:33.071+0000 [id=1]     WARNING o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2022-07-06 08:17:33.110+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: jetty-9.4.46.v20220331; built: 2022-03-31T16:38:08.030Z; git: bc17a0369a11ecf40bb92c839b9ef0a8ac50ea18; jvm 11.0.15+10
+2022-07-06 08:17:33.282+0000 [id=1]     INFO    o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2022-07-06 08:17:33.310+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: DefaultSessionIdManager workerName=node0
+2022-07-06 08:17:33.310+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: No SessionScavenger set, using defaults
+2022-07-06 08:17:33.311+0000 [id=1]     INFO    o.e.j.server.session.HouseKeeper#startScavenging: node0 Scavenging every 600000ms
+2022-07-06 08:17:33.674+0000 [id=1]     INFO    hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-07-06 08:17:33.822+0000 [id=1]     INFO    o.e.j.s.handler.ContextHandler#doStart: Started w.@3effd4f3{Jenkins v2.357,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+2022-07-06 08:17:33.844+0000 [id=1]     INFO    o.e.j.server.AbstractConnector#doStart: Started ServerConnector@241e8ea6{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2022-07-06 08:17:33.844+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: Started @1769ms
+2022-07-06 08:17:33.844+0000 [id=24]    INFO    winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2022-07-06 08:17:34.057+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Started initialization
+2022-07-06 08:17:34.073+0000 [id=30]    INFO    jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2022-07-06 08:17:34.744+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2022-07-06 08:17:34.749+0000 [id=33]    INFO    jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2022-07-06 08:17:34.754+0000 [id=35]    INFO    jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2022-07-06 08:17:34.964+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: System config loaded
+2022-07-06 08:17:34.964+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: System config adapted
+2022-07-06 08:17:34.965+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2022-07-06 08:17:34.966+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2022-07-06 08:17:35.003+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Started Download metadata
+2022-07-06 08:17:35.018+0000 [id=49]    INFO    hudson.util.Retrier#start: Attempt #1 to do the action check updates server
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/var/jenkins_home/war/WEB-INF/lib/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2022-07-06 08:17:35.509+0000 [id=31]    INFO    jenkins.install.SetupWizard#init:
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+079e429cc5e44e688c90ea771249d996
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+2022-07-06 08:17:54.572+0000 [id=29]    INFO    jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2022-07-06 08:17:54.601+0000 [id=23]    INFO    hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2022-07-06 08:17:58.330+0000 [id=49]    INFO    h.m.DownloadService$Downloadable#load: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+2022-07-06 08:17:58.331+0000 [id=49]    INFO    hudson.util.Retrier#start: Performed the action check updates server successfully at the attempt #1
+2022-07-06 08:17:58.333+0000 [id=49]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Finished Download metadata. 23,321 ms
+
+C:\Users\vm67964>
+
+
+------------------------------------------------------------------------------
+
+installing my sql through docker
+
+
+C:\Users\vm67964>docker run -d -p 3300:3306 --env MYSQL_ROOT_PASSWORD=root --env MYSQL_USER=root --env MYSQL_DATABASE=testdb --name sql mysql:8.0.29
+Unable to find image 'mysql:8.0.29' locally
+8.0.29: Pulling from library/mysql
+e54b73e95ef3: Pull complete
+bb429e544310: Pull complete
+c148b3f9047c: Pull complete
+a1dd213a3236: Pull complete
+297095d1476d: Pull complete
+87f3aa837301: Pull complete
+535019436481: Pull complete
+23722cff1cc3: Pull complete
+eb19883dc4c6: Pull complete
+6eaa2c236095: Pull complete
+Digest: sha256:444f037733d01fc3dfc691a9ab05e346629e8e4d3a6c75da864f21421fb38ced
+Status: Downloaded newer image for mysql:8.0.29
+1a6939f665b59afabde74abe1c3001357da03b9706feddb6986a83ff4df83beb
+
+C:\Users\vm67964>docker images
+REPOSITORY        TAG       IMAGE ID       CREATED        SIZE
+mysql             8.0.29    7e7e458be53c   11 hours ago   444MB
+jenkins/jenkins   latest    4d0f2c58247d   7 days ago     462MB
+hello-world       latest    feb5d9fea6a5   9 months ago   13.3kB
+
+C:\Users\vm67964>docker container ls  -a
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS                      PORTS                               NAMES
+1a6939f665b5   mysql:8.0.29      "docker-entrypoint.s…"   23 seconds ago   Exited (1) 21 seconds ago                                       sql
+3cebbc1ee28e   jenkins/jenkins   "/usr/bin/tini -- /u…"   2 hours ago      Up 2 hours                  0.0.0.0:8080->8080/tcp, 50000/tcp   suspicious_perlman
+048673aa4cc8   jenkins/jenkins   "/usr/bin/tini -- /u…"   2 hours ago      Exited (143) 2 hours ago                                        beautiful_sinoussi
+40feeb6111e3   jenkins/jenkins   "/usr/bin/tini -- /u…"   3 hours ago      Exited (143) 3 hours ago                                        cranky_bose
+878c0a48658d   jenkins/jenkins   "/usr/bin/tini -- /u…"   3 hours ago      Exited (143) 2 hours ago                                        determined_bhabha
+a3e081f72b74   hello-world       "/hello"                 4 hours ago      Exited (0) 4 hours ago                                          unruffled_kirch
+
+
+///to run the sql
+port no is changed due to not available
+
+C:\Users\vm67964>docker run -p 3307:3306 --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=testdb --name testsql mysql:8.0.29
+2022-07-06 10:20:23+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.29-1.el8 started.
+2022-07-06 10:20:23+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2022-07-06 10:20:23+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.29-1.el8 started.
+2022-07-06 10:20:23+00:00 [Note] [Entrypoint]: Initializing database files
+2022-07-06T10:20:23.713060Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.29) initializing of server in progress as process 43
+2022-07-06T10:20:23.723355Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2022-07-06T10:20:24.765527Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2022-07-06T10:20:27.268068Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+2022-07-06 10:20:32+00:00 [Note] [Entrypoint]: Database files initialized
+2022-07-06 10:20:32+00:00 [Note] [Entrypoint]: Starting temporary server
+2022-07-06T10:20:33.212634Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.29) starting as process 92
+2022-07-06T10:20:33.238025Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2022-07-06T10:20:33.407740Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2022-07-06T10:20:33.749766Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2022-07-06T10:20:33.749847Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2022-07-06T10:20:33.775317Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+2022-07-06T10:20:33.775373Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+2022-07-06 10:20:33+00:00 [Note] [Entrypoint]: Temporary server started.
+'/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+Warning: Unable to load '/usr/share/zoneinfo/iso3166.tab' as time zone. Skipping it.
+Warning: Unable to load '/usr/share/zoneinfo/leapseconds' as time zone. Skipping it.
+Warning: Unable to load '/usr/share/zoneinfo/tzdata.zi' as time zone. Skipping it.
+Warning: Unable to load '/usr/share/zoneinfo/zone.tab' as time zone. Skipping it.
+Warning: Unable to load '/usr/share/zoneinfo/zone1970.tab' as time zone. Skipping it.
+2022-07-06 10:20:36+00:00 [Note] [Entrypoint]: Creating database testdb
+
+2022-07-06 10:20:36+00:00 [Note] [Entrypoint]: Stopping temporary server
+2022-07-06T10:20:36.543703Z 11 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.29).
+2022-07-06T10:20:39.281676Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.29)  MySQL Community Server - GPL.
+2022-07-06 10:20:39+00:00 [Note] [Entrypoint]: Temporary server stopped
+
+2022-07-06 10:20:39+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+
+2022-07-06T10:20:39.787792Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.29) starting as process 1
+2022-07-06T10:20:39.798990Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2022-07-06T10:20:39.943683Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2022-07-06T10:20:40.192679Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2022-07-06T10:20:40.192733Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2022-07-06T10:20:40.217412Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+2022-07-06T10:20:40.217557Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+
+
+now got workbench->give name MysqlDocker->password ->root->test connection it will give connection success
+now double click on the icon( MysqlDocker)in workbench it open we can see testdb there->type use testdb; and show tables;
+
+
+
+-------------------------------------------------
+
+//now without using the workbench talking to mysql through cmd prompt
+
+open new cmd because already mysql service is running 
+
+Microsoft Windows [Version 10.0.19044.1766]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\vm67964>docker container exec -it testsql bash
+bash-4.4# mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| testdb             |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)No database selected
+mysql> use testdb;
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql>
+
+----------
+
+connecting spring boot application to mysql server 
+
+application name: spring-boot-demo-docker-mysql
+
+in that open application.yml file and do changes
+
+# spring.datasource.url=jdbc:mysql://localhost:3306/javabatch
+# spring.datasource.username=root
+# spring.datasource.password=Zensar@123
+# spring.jpa.hibernate.ddl-auto=create
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/testdb----changes
+    username: root
+    password: root---changes
+  jpa: 
+   hibernate:
+     ddl-auto: create---changes
+   show-sql: true
+   properties:
+    hibernate:
+     format_sql: true
+     #dialect: org.hibernate.dialect.MySQLDialect
+
+
+next save the changes and run the application if application failed to start 8080 jenkins is running to stop
+that docker container stop id it will stop then runthe spring boot application again
+
+
+
+
+Ram
+16:57:01.780 [Thread-0] DEBUG org.springframework.boot.devtools.restart.classloader.RestartClassLoader - Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@3124b238
+Ram
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.0)
+
+2022-07-06 16:57:02.233  INFO 7980 --- [  restartedMain] c.z.s.SpringBootDemoApplication          : Starting SpringBootDemoApplication using Java 11.0.15 on POOLW42SLPC7060 with PID 7980 (C:\Users\vm67964\Documents\workspace-sts-3.9.8.RELEASE\Training\spring-boot-demo-docker-mysql\target\classes started by VM67964 in C:\Users\vm67964\Documents\workspace-sts-3.9.8.RELEASE\Training\spring-boot-demo-docker-mysql)
+2022-07-06 16:57:02.235  INFO 7980 --- [  restartedMain] c.z.s.SpringBootDemoApplication          : No active profile set, falling back to 1 default profile: "default"
+2022-07-06 16:57:02.282  INFO 7980 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-07-06 16:57:02.284  INFO 7980 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-07-06 16:57:03.043  INFO 7980 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-07-06 16:57:03.117  INFO 7980 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 1 JPA repository interfaces.
+2022-07-06 16:57:03.709  INFO 7980 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-07-06 16:57:03.719  INFO 7980 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-07-06 16:57:03.720  INFO 7980 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-07-06 16:57:03.874  INFO 7980 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-07-06 16:57:03.874  INFO 7980 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1590 ms
+2022-07-06 16:57:04.099  INFO 7980 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-07-06 16:57:04.151  INFO 7980 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-07-06 16:57:04.321  INFO 7980 --- [  restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-07-06 16:57:04.438  INFO 7980 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-07-06 16:57:04.804  INFO 7980 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-07-06 16:57:04.824  INFO 7980 --- [  restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+Hibernate: 
+    
+    drop table if exists student
+Hibernate: 
+    
+    create table student (
+       student_id integer not null,
+        student_age integer not null,
+        student_name varchar(255),
+        primary key (student_id)
+    ) engine=InnoDB
+2022-07-06 16:57:05.558  INFO 7980 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-07-06 16:57:05.567  INFO 7980 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-07-06 16:57:06.051  WARN 7980 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-07-06 16:57:06.416  INFO 7980 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-07-06 16:57:06.462  INFO 7980 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-07-06 16:57:06.478  INFO 7980 --- [  restartedMain] c.z.s.SpringBootDemoApplication          : Started SpringBootDemoApplication in 4.683 seconds (JVM running for 6.254)
+MyCommandLineRunner2[--spring.output.ansi.enabled=always]
+MyCommandLineRunner[--spring.output.ansi.enabled=always]
+MyApplicationRunner[--spring.output.ansi.enabled=always]
+seetha
+Laxman
+2022-07-06 16:57:50.594  INFO 7980 --- [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-07-06 16:57:50.595  INFO 7980 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-07-06 16:57:50.597  INFO 7980 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+Hibernate: 
+    select
+        student0_.student_id as student_1_0_0_,
+        student0_.student_age as student_2_0_0_,
+        student0_.student_name as student_3_0_0_ 
+    from
+        student student0_ 
+    where
+        student0_.student_id=?
+Hibernate: 
+    insert 
+    into
+        student
+        (student_age, student_name, student_id) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    select
+        student0_.student_id as student_1_0_0_,
+        student0_.student_age as student_2_0_0_,
+        student0_.student_name as student_3_0_0_ 
+    from
+        student student0_ 
+    where
+        student0_.student_id=?
+Hibernate: 
+    insert 
+    into
+        student
+        (student_age, student_name, student_id) 
+    values
+        (?, ?, ?)
+
+
+
+///now open post man and post the data
+ post  http://localhost:8080/student-api/students/
+
+ <studentDto>
+        <studentId>2</studentId>
+        <studentName>vinod</studentName>
+        <studentAge>24</studentAge>
+    </studentDto> 
+
+
+
+
+get  http://localhost:8080/student-api/students/
+
+
+
+<List>
+    <item>
+        <studentId>2</studentId>
+        <studentName>vinod</studentName>
+        <studentAge>24</studentAge>
+    </item>
+    <item>
+        <studentId>1</studentId>
+        <studentName>bbhi</studentName>
+        <studentAge>34</studentAge>
+    </item>
+</List>
+
+
+-----
+now see the results in cmd
+mysql> show tables;
++------------------+
+| Tables_in_testdb |
++------------------+
+| student          |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++------------+-------------+--------------+
+| student_id | student_age | student_name |
++------------+-------------+--------------+
+|          1 |          34 | bbhi         |
++------------+-------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++------------+-------------+--------------+
+| student_id | student_age | student_name |
++------------+-------------+--------------+
+|          1 |          34 | bbhi         |
+|          2 |          24 | vinod        |
++------------+-------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+ 
+
+
+
+

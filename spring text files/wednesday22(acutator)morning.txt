@@ -1,0 +1,187 @@
+ for all endpoints
+
+
+enable in application.yml
+
+# spring.datasource.url=jdbc:mysql://localhost:3306/javabatch
+# spring.datasource.username=root
+# spring.datasource.password=Zensar@123
+# spring.jpa.hibernate.ddl-auto=create
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/javabatch
+    username: root
+    password: Zensar@123
+  jpa: 
+   hibernate:
+     ddl-auto: update
+   show-sql: true
+   properties:
+    hibernate:
+     format_sql: true
+     #dialect: org.hibernate.dialect.MySQLDialect
+     
+     
+     
+management:
+  endpoints:
+   web:
+     exposure:
+       include:
+       - "*"
+     
+
+
+
+http://localhost:8080/actuator
+
+
+
+
+{"_links":{"self":{"href":"http://localhost:8080/actuator","templated":false},"beans":{"href":"http://localhost:8080/actuator/beans","templated":false},"caches":{"href":"http://localhost:8080/actuator/caches","templated":false},"caches-cache":{"href":"http://localhost:8080/actuator/caches/{cache}","templated":true},"health":{"href":"http://localhost:8080/actuator/health","templated":false},"health-path":{"href":"http://localhost:8080/actuator/health/{*path}","templated":true},"info":{"href":"http://localhost:8080/actuator/info","templated":false},"conditions":{"href":"http://localhost:8080/actuator/conditions","templated":false},"configprops":{"href":"http://localhost:8080/actuator/configprops","templated":false},"configprops-prefix":{"href":"http://localhost:8080/actuator/configprops/{prefix}","templated":true},"env-toMatch":{"href":"http://localhost:8080/actuator/env/{toMatch}","templated":true},"env":{"href":"http://localhost:8080/actuator/env","templated":false},"loggers-name":{"href":"http://localhost:8080/actuator/loggers/{name}","templated":true},"loggers":{"href":"http://localhost:8080/actuator/loggers","templated":false},"heapdump":{"href":"http://localhost:8080/actuator/heapdump","templated":false},"threaddump":{"href":"http://localhost:8080/actuator/threaddump","templated":false},"metrics-requiredMetricName":{"href":"http://localhost:8080/actuator/metrics/{requiredMetricName}","templated":true},"metrics":{"href":"http://localhost:8080/actuator/metrics","templated":false},"scheduledtasks":{"href":"http://localhost:8080/actuator/scheduledtasks","templated":false},"mappings":{"href":"http://localhost:8080/actuator/mappings","templated":false}}}
+
+
+for specific 
+
+
+
+# spring.datasource.url=jdbc:mysql://localhost:3306/javabatch
+# spring.datasource.username=root
+# spring.datasource.password=Zensar@123
+# spring.jpa.hibernate.ddl-auto=create
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/javabatch
+    username: root
+    password: Zensar@123
+  jpa: 
+   hibernate:
+     ddl-auto: update
+   show-sql: true
+   properties:
+    hibernate:
+     format_sql: true
+     #dialect: org.hibernate.dialect.MySQLDialect
+     
+     
+     
+management:
+  endpoints:
+   web:
+     exposure:
+       include:
+       - "*"
+       exclude:
+       - health
+       - beans
+     
+
+
+
+{"_links":{"self":{"href":"http://localhost:8080/actuator","templated":false},"caches-cache":{"href":"http://localhost:8080/actuator/caches/{cache}","templated":true},"caches":{"href":"http://localhost:8080/actuator/caches","templated":false},"info":{"href":"http://localhost:8080/actuator/info","templated":false},"conditions":{"href":"http://localhost:8080/actuator/conditions","templated":false},"configprops":{"href":"http://localhost:8080/actuator/configprops","templated":false},"configprops-prefix":{"href":"http://localhost:8080/actuator/configprops/{prefix}","templated":true},"env":{"href":"http://localhost:8080/actuator/env","templated":false},"env-toMatch":{"href":"http://localhost:8080/actuator/env/{toMatch}","templated":true},"loggers":{"href":"http://localhost:8080/actuator/loggers","templated":false},"loggers-name":{"href":"http://localhost:8080/actuator/loggers/{name}","templated":true},"heapdump":{"href":"http://localhost:8080/actuator/heapdump","templated":false},"threaddump":{"href":"http://localhost:8080/actuator/threaddump","templated":false},"metrics":{"href":"http://localhost:8080/actuator/metrics","templated":false},"metrics-requiredMetricName":{"href":"http://localhost:8080/actuator/metrics/{requiredMetricName}","templated":true},"scheduledtasks":{"href":"http://localhost:8080/actuator/scheduledtasks","templated":false},"mappings":{"href":"http://localhost:8080/actuator/mappings","templated":false}}}
+
+
+
+
+---------------------------------------------------------------------------
+
+
+# spring.datasource.url=jdbc:mysql://localhost:3306/javabatch
+# spring.datasource.username=root
+# spring.datasource.password=Zensar@123
+# spring.jpa.hibernate.ddl-auto=create
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/javabatch
+    username: root
+    password: Zensar@123
+  jpa: 
+   hibernate:
+     ddl-auto: update
+   show-sql: true
+   properties:
+    hibernate:
+     format_sql: true
+     #dialect: org.hibernate.dialect.MySQLDialect
+     
+     
+     
+management:
+  endpoints:
+   web:
+     exposure:
+       include:
+       - "*"
+       exclude:
+       - health
+       - beans
+       
+  endpoint:
+    shutdown:
+      enabled: true   
+     
+
+check in postman
+ post  http://localhost:8080/actuator/shutdown
+
+
+{
+    "message": "Shutting down, bye..."
+}
+
+
+
+-----------------------------------------------------
+
+# spring.datasource.url=jdbc:mysql://localhost:3306/javabatch
+# spring.datasource.username=root
+# spring.datasource.password=Zensar@123
+# spring.jpa.hibernate.ddl-auto=create
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/javabatch
+    username: root
+    password: Zensar@123
+  jpa: 
+   hibernate:
+     ddl-auto: update
+   show-sql: true
+   properties:
+    hibernate:
+     format_sql: true
+     #dialect: org.hibernate.dialect.MySQLDialect
+     
+     
+     
+management:
+  endpoints:
+   web:
+     exposure:
+       include:
+       - "*"
+       exclude:
+       - health
+       - beans
+     base-path: /myactuator
+       
+  endpoint:
+    shutdown:
+      enabled: true   
+      
+      
+  
+     
+
+in browser-http://localhost:8080/myactuator
+
+
+{"_links":{"self":{"href":"http://localhost:8080/myactuator","templated":false},"caches-cache":{"href":"http://localhost:8080/myactuator/caches/{cache}","templated":true},"caches":{"href":"http://localhost:8080/myactuator/caches","templated":false},"info":{"href":"http://localhost:8080/myactuator/info","templated":false},"conditions":{"href":"http://localhost:8080/myactuator/conditions","templated":false},"shutdown":{"href":"http://localhost:8080/myactuator/shutdown","templated":false},"configprops":{"href":"http://localhost:8080/myactuator/configprops","templated":false},"configprops-prefix":{"href":"http://localhost:8080/myactuator/configprops/{prefix}","templated":true},"env":{"href":"http://localhost:8080/myactuator/env","templated":false},"env-toMatch":{"href":"http://localhost:8080/myactuator/env/{toMatch}","templated":true},"loggers":{"href":"http://localhost:8080/myactuator/loggers","templated":false},"loggers-name":{"href":"http://localhost:8080/myactuator/loggers/{name}","templated":true},"heapdump":{"href":"http://localhost:8080/myactuator/heapdump","templated":false},"threaddump":{"href":"http://localhost:8080/myactuator/threaddump","templated":false},"metrics-requiredMetricName":{"href":"http://localhost:8080/myactuator/metrics/{requiredMetricName}","templated":true},"metrics":{"href":"http://localhost:8080/myactuator/metrics","templated":false},"scheduledtasks":{"href":"http://localhost:8080/myactuator/scheduledtasks","templated":false},"mappings":{"href":"http://localhost:8080/myactuator/mappings","templated":false}}}
+

@@ -1,0 +1,43 @@
+single pipeline
+
+
+
+pipeline {
+    agent any
+    stages{
+        stage('Hello'){
+            steps{
+                echo 'Helo world'
+            }
+        }
+    }
+}
+
+
+------------------------------------------
+multi-pipelines
+
+pipeline {
+    agent any
+    stages{
+        stage('Checkout'){
+            steps{
+                echo 'Helo world'
+            }
+        }
+	stage('Clean'){
+            steps{
+                echo 'Helo world'
+            }
+    }
+	stage('Build'){
+            steps{
+                echo 'Helo world'
+            }
+    }
+	stage('Deploy'){
+            steps{
+                echo 'Helo world'
+            }
+    }
+	

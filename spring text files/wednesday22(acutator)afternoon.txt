@@ -1,0 +1,169 @@
+afternoon
+
+
+# spring.datasource.url=jdbc:mysql://localhost:3306/javabatch
+# spring.datasource.username=root
+# spring.datasource.password=Zensar@123
+# spring.jpa.hibernate.ddl-auto=create
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/javabatch
+    username: root
+    password: Zensar@123
+  jpa: 
+   hibernate:
+     ddl-auto: update
+   show-sql: true
+   properties:
+    hibernate:
+     format_sql: true
+     #dialect: org.hibernate.dialect.MySQLDialect
+     
+     
+     
+management:
+  endpoints:
+   web:
+     exposure:
+       include:
+       - "*"
+       exclude:
+       - health
+       - beans
+     base-path: /myactuator
+       
+  endpoint:
+    shutdown:
+      enabled: true   
+      
+ //afternoon////////////////////////     
+  info:
+    build:
+      enabled: true
+      
+    git:
+      enabled: true
+      
+    env:
+      enabled: true
+      
+info:
+  createdBy: vinod kumar
+  modified: 22jun2022
+  
+  
+logging:
+  level:
+    com:
+     zensar: debug  
+ 
+      
+      
+  
+   
+
+check in browser
+http://localhost:8080/myactuator/metrics
+
+{"names":["application.ready.time","application.started.time","disk.free","disk.total","executor.active","executor.completed","executor.pool.core","executor.pool.max","executor.pool.size","executor.queue.remaining","executor.queued","hikaricp.connections","hikaricp.connections.acquire","hikaricp.connections.active","hikaricp.connections.creation","hikaricp.connections.idle","hikaricp.connections.max","hikaricp.connections.min","hikaricp.connections.pending","hikaricp.connections.timeout","hikaricp.connections.usage","http.server.requests","jdbc.connections.max","jdbc.connections.min","jvm.buffer.count","jvm.buffer.memory.used","jvm.buffer.total.capacity","jvm.classes.loaded","jvm.classes.unloaded","jvm.gc.live.data.size","jvm.gc.max.data.size","jvm.gc.memory.allocated","jvm.gc.memory.promoted","jvm.gc.overhead","jvm.gc.pause","jvm.memory.committed","jvm.memory.max","jvm.memory.usage.after.gc","jvm.memory.used","jvm.threads.daemon","jvm.threads.live","jvm.threads.peak","jvm.threads.states","logback.events","process.cpu.usage","process.start.time","process.uptime","system.cpu.count","system.cpu.usage","tomcat.sessions.active.current","tomcat.sessions.active.max","tomcat.sessions.alive.max","tomcat.sessions.created","tomcat.sessions.expired","tomcat.sessions.rejected"]}
+
+
+-------------------------
+
+override the health
+
+
+
+create new class
+
+with new package
+
+package com.zensar.springbootdemo.endpoints;
+
+import java.util.Random;
+
+import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CustomHealthIndicator extends AbstractHealthIndicator {
+
+	@Override
+	protected void doHealthCheck(Builder builder) throws Exception {
+		
+		System.out.println("inside doHealthCheck");
+		
+		Random random=new Random();
+		
+		
+		int randomNumber = random.nextInt(100);
+		
+		if (randomNumber % 2 == 0)
+			
+		{
+			
+			builder.up();
+		}
+		else {
+			builder.down();
+		}
+	}
+
+}
+---
+
+runthe browser
+
+http://localhost:8080/myactuator/health
+
+
+{"status":"UP"}
+
+after refresh
+
+{"status":"DOWN"}
+
+------------------------------------------------------------
+
+info contributor
+
+
+
+
+package com.zensar.springbootdemo.endpoints;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.boot.actuate.info.Info.Builder;
+import org.springframework.boot.actuate.info.InfoContributor;
+
+public class InfoContributors implements InfoContributor {
+
+	@Override
+	public void contribute(Builder builder) {
+		
+		Map<String, Object> studentDetails = new HashMap<String,Object>();
+		studentDetails.put("CreatedBy", "Vinodkumar");
+		studentDetails.put("Modified","July22nd2022");
+		builder.withDetail("Student", studentDetails);
+
+		
+	}
+
+}
+---------------------
+after run the code ee the results in postman
+
+get  http://localhost:8080/myactuator/info
+
+
+{
+    "createdBy": "vinod kumar",
+    "modified": "22jun2022"
+}
+
+
